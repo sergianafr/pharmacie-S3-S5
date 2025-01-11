@@ -1,0 +1,44 @@
+<project name="pharmacie" default="deploy" basedir=".">
+    <property name="src.dir" value="src/main/java"/>
+    <property name="web.dir" value="src/main/webapp"/>
+    <property name="build.dir" value="build"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="web-inf.dir" value="${web.dir}/WEB-INF"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${build.dir}/classes"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}/classes" includeantruntime="false">
+            <classpath>
+                <fileset dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="package" depends="compile">
+        <mkdir dir="${dist.dir}"/>
+        <copy todir="${build.dir}/WEB-INF/classes">
+            <fileset dir="${build.dir}/classes"/>
+        </copy>
+        <copy todir="${build.dir}/WEB-INF/lib">
+            <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        </copy>
+        <copy todir="${build.dir}">
+            <fileset dir="${web.dir}" excludes="WEB-INF/**"/>
+        </copy>
+        <war destfile="${dist.dir}/pharmacie.war" needxmlfile='false'>
+            <fileset dir="${build.dir}"/>
+        </war>
+    </target>
+
+    <target name="deploy" depends="package">
+        <copy file="${dist.dir}/pharmacie.war" todir="C:\Program Files\Apache Software Foundation\Tomcat 10.1\webapps"/>
+    </target>
+</project>
