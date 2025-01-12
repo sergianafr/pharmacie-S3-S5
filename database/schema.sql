@@ -116,6 +116,14 @@ CREATE TABLE Produit(
    PRIMARY KEY(id),
    FOREIGN KEY(id_categorie) REFERENCES Categorie(id)
 );
+CREATE TABLE prix_produit(
+   id serial primary key,
+   date_insertion date,
+   montant double precision,
+   id_produit integer references Produit(id)
+);
+
+
 CREATE TABLE age_produit(
    id SERIAL, 
    id_produit INTEGER NOT NULL,
@@ -212,10 +220,5 @@ CREATE TABLE vente_detail(
    id_produit integer references Produit(id)
 );
 
-CREATE TABLE prix_produit(
-   id serial primary key,
-   date_insertion date,
-   montant double precision,
-   id_produit integer references Produit(id)
-);
+
 
