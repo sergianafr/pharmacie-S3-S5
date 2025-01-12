@@ -75,6 +75,8 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
 
                 </form><!-- End General Form Elements -->
                 <!-- Default Table -->
+                <button class="btn btn-primary"><a href="GetVente?type=insertion">Inserer</a></button>
+
                 <table class="table">
                   <thead>
                     <tr>

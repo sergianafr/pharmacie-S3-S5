@@ -41,16 +41,16 @@
             <div class="col-lg-6">
 
                 <div class="card">
-                <div class="card-body">
+                <div class="card-body"> 
                     <h5 class="card-title">Insertion Vente</h5>
 
                     <!-- General Form Elements -->
                     <form>
-                        <div id="produit-form">
+                        <div id="produit-form" class="produit-section">
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Produit</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select" aria-label="Default select example">
+                                    <select class="form-select" name="produit[]" aria-label="Default select example">
                                         <option selected>Produit</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -63,7 +63,7 @@
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control">
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-3" onclick="addProduit()">
                                     <button class="btn btn-primary">Ajouter</button>
                                 </div>
                             </div>
@@ -98,18 +98,18 @@
   <script src="assets/js/main.js"></script>
     <script>
         function addProduit() {
-            const section = document.getElementById('produi-form');
+            const section = document.getElementById('produit-form');
             const newIndex = section.children.length; // Obtenir le prochain index
 
-            const newDosageEntry = document.querySelector('.dosage-entry').cloneNode(true);
-            newDosageEntry.querySelector('select[name="produit[]"]').name = `unite[${newIndex}]`;
-            newDosageEntry.querySelector('input[name="dosage"]').name = `dosage[${newIndex}]`;
+            const newProduitEntry = document.querySelector('.produit-section').cloneNode(true);
+            newProduitEntry.querySelector('select[name="produit[]"]').name = `produit[${newIndex}]`;
+            newProduitEntry.querySelector('input[name="quantite"]').name = `quantite[${newIndex}]`;
 
             // Réinitialiser les valeurs des champs
-            newDosageEntry.querySelector('input[name="dosage"]').value = '';
-            newDosageEntry.querySelector('select[name="unite[]"]').value = '';
+            newProduitEntry.querySelector('input[name="quantite"]').value = '';
+            newProduitEntry.querySelector('select[name="produit[]"]').value = '';
 
-            section.appendChild(newDosageEntry);
+            section.appendChild(newProduitEntry);
         }
     </script>
 </body>

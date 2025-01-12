@@ -36,9 +36,9 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.jsp">
+        <a class="nav-link " href="ListeVente">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Vente</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -66,12 +66,12 @@
         </ul>
       </li>
       
-      <li class="nav-item">
+      <%-- <li class="nav-item">
         <a href="ListeVente">
           <i class="bi bi-grid"></i>
           <span>Vente</span>
         </a>
-      </li>
+      </li> --%>
       <%-- End Section produit  --%>
     </ul>
 

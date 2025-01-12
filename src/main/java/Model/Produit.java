@@ -2,6 +2,8 @@ package Model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import DbUtils.Connect;
 
@@ -10,6 +12,8 @@ public class Produit {
     public String nom;
     public boolean surOrdonnance;
     public int idCategorie;
+    private double montant;
+    private String nomCategorie;
     
     public Produit(int id, String nom, boolean surOrdonnance, int idCategorie) {
         this.id = id;
@@ -59,6 +63,51 @@ public class Produit {
 
             c.getConnex().commit();
         } catch (Exception e) {
+            throw e;
+        }
+    }
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }public void setNomCategorie(String nomCategorie) {
+        this.nomCategorie = nomCategorie;
+    }
+    public void setSurOrdonnance(boolean surOrdonnance) {
+        this.surOrdonnance = surOrdonnance;
+    }
+    public double getMontant() {
+        return montant;
+    }public String getNomCategorie() {
+        return nomCategorie;
+    }
+
+    public static  List<Produit> getAll(Connect c) throws Exception{
+        try {
+            String sql = """
+            SELECT * FROM v_details_produit
+            """;
+            PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            List<Produit> results = new ArrayList<Produit>();
+            while(rs.next()){
+                // System.out.println(rs);
+                int id = rs.getInt(1);
+                String nom = rs.getString(2);
+                Boolean surOrdonnance = rs.getBoolean(3);
+                int idCategorie = rs.getInt(4);
+                String nomCategorie =  rs.getString(5);
+                double montant = rs.getDouble(6);
+                Produit p = new Produit(id, nom, surOrdonnance, idCategorie);
+                p.setNomCategorie(nomCategorie);
+                p.setSurOrdonnance(surOrdonnance);
+                results.add(p);   
+            }
+            preparedStatement.close();
+            rs.close();
+            return results;
+            
+        } catch (Exception e) {
+            // c.closeBD();
             throw e;
         }
     }
