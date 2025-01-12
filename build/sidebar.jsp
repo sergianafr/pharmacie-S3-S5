@@ -58,6 +58,11 @@
               <i class="bi bi-circle"></i><span>Hygienes</span>
             </a>
           </li>
+          <li>
+            <a href="GetLaboratoire">
+              <i class="bi bi-circle"></i><span>Laboratoires</span>
+            </a>
+          </li>
         </ul>
       </li>
       

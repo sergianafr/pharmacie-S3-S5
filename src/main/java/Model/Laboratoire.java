@@ -59,5 +59,30 @@ public class Laboratoire {
             throw e;
         }
     }
+    public void insert(Connect c) throws Exception {
+        try {
+            String Query = "INSERT INTO Laboratoire (id, nom, id_pays_origine) VALUES (default, ?, ?)";
+            PreparedStatement preparedStatement = c.getConnex().prepareStatement(Query, PreparedStatement.RETURN_GENERATED_KEYS);
+            
+            preparedStatement.setString(1, this.getNom()); 
+            preparedStatement.setInt(2, this.getId_pays_origine()); 
+    
+            preparedStatement.executeUpdate();
+            
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                this.id = generatedKeys.getInt(1); 
+            }
+    
+            generatedKeys.close();
+            preparedStatement.close();
+    
+            c.getConnex().commit();
+        } catch (Exception e) {
+            c.getConnex().rollback(); 
+            throw e;
+        }
+    }
+    
     
 }
