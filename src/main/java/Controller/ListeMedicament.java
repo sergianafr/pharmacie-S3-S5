@@ -141,7 +141,7 @@ public class ListeMedicament extends HttpServlet {
         String[] unites = request.getParameterValues("unite[]");
 
         String[] maladies = request.getParameterValues("maladies[]");
-
+        String[] pu = request.getParameterValues("prixUnitaire[]");
         String[] ages = request.getParameterValues("ages[]");
 
         String surOrdonnance = request.getParameter("surOrdonnance");
@@ -162,6 +162,7 @@ public class ListeMedicament extends HttpServlet {
             List<QuantiteMedoc> quantites = new ArrayList<QuantiteMedoc>();
             List<Maladie> listeMal = new ArrayList<Maladie>();
             List<Age> listeAge = new ArrayList<Age>();
+            List<Double> listePu = new ArrayList<Double>();
             for (String maladie : maladies) {
                 System.out.println(maladie+" maladie");
 
@@ -187,12 +188,13 @@ public class ListeMedicament extends HttpServlet {
                 qt.setIdUnite(Integer.parseInt(unites[i]));
                 quantites.add(qt);
                 formesAdmin.add(formeAdmin);
-                
+                listePu.add(Double.valueOf(pu[i]));
             }
             medicament.setMaladies(listeMal);
             medicament.setFormesAdmin(formesAdmin);
             medicament.setQuantites(quantites);
             medicament.setAges(listeAge);
+            medicament.setPu(listePu);
 
             medicament.validerInsert(connect);
             connect.getConnex().commit();

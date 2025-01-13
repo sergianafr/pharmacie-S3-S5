@@ -100,6 +100,7 @@ public class Produit {
                 Produit p = new Produit(id, nom, surOrdonnance, idCategorie);
                 p.setNomCategorie(nomCategorie);
                 p.setSurOrdonnance(surOrdonnance);
+                p.setMontant(montant);
                 results.add(p);   
             }
             preparedStatement.close();

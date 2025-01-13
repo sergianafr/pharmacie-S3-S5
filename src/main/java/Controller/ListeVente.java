@@ -139,7 +139,12 @@ public class ListeVente extends HttpServlet {
 
             doGet(request, response);
         } catch (Exception e) {
-            e.printStackTrace();
+            request.setAttribute("error", e.getMessage());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("GetVente");
+            dispatcher.forward(request, response);
+        }
+        finally{
+            con.closeBD();
         }
 
     }

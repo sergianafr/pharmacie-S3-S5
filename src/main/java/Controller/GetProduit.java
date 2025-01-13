@@ -26,7 +26,10 @@ public class GetProduit extends HttpServlet{
                 RequestDispatcher dispatcher = req.getRequestDispatcher("produit.jsp");
                 dispatcher.forward(req, resp);
             } catch (Exception e) {
-                // TODO: handle exception
+                e.printStackTrace();
+            }
+            finally{
+                con.closeBD();
             }
         }
 }   

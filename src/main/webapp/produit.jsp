@@ -35,7 +35,7 @@ List<Produit> listProduit = (List<Produit>) request.getAttribute("produits");
                         <tr>
                             <th>Nom</th>
                             <th>Sur ordonnance</th>
-                            <th>Categorie</th>                            <th>Sur ordonnance</th>
+                            <th>Categorie</th>                            
                             <th>Prix unitaire</th>
                         </tr>
                     </thead>
@@ -44,7 +44,7 @@ List<Produit> listProduit = (List<Produit>) request.getAttribute("produits");
                 for(Produit l : listProduit){%>
                         <tr>
                             <td><%=l.getNom()%></td>
-                            <td><%=l.getSurOrdonnance()%></td>
+                            <td><%=l.surOrdonnance()%></td>
                             <td><%=l.getNomCategorie()%></td>
                             <td><%=l.getMontant()%></td>
                         </tr>
@@ -54,4 +54,5 @@ List<Produit> listProduit = (List<Produit>) request.getAttribute("produits");
             </div> 
         </section>
     </main>
+    <%@ include file="footer.jsp" %>
 </body>

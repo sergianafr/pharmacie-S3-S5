@@ -23,6 +23,9 @@ public class GetVente extends HttpServlet{
                 List<Produit> produits = Produit.getAll(connect);
                 req.setAttribute("produits", produits);
             }
+            if(req.getAttribute("error")!=null){
+                req.setAttribute("error", req.getAttribute("error"));
+            }
             RequestDispatcher dispatcher = req.getRequestDispatcher("insertVente.jsp");
             dispatcher.forward(req, resp);
         } catch (Exception e) {
@@ -31,5 +34,9 @@ public class GetVente extends HttpServlet{
         finally{
             connect.closeBD();
         }
+    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }

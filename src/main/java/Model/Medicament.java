@@ -25,7 +25,14 @@ public class Medicament {
     private List<FormeAdminMedoc> formeAdminMedoc = new ArrayList<>();
     private boolean surOrdonnance; 
     private List<Produit> produits = new ArrayList<Produit>();
+    private List<Double> pu= new ArrayList<>();
 
+    public List<Double> getPu() {
+        return pu;
+    }
+    public void setPu(List<Double> pu) {
+        this.pu = pu;
+    }
     public List<Age> getAges() {
         return ages;
     }
@@ -256,10 +263,12 @@ public class Medicament {
             int i = 0;
             for (FormeAdminMedoc fam : formeAdminMedoc) {
                 String nomProduit = fam.buildNomProduit()+quantites.get(i).buildNomProduit();
-                i++;
                 Produit p = new Produit(0, nomProduit, surOrdonnance, 1);
                 p.create(connect);
+                PrixProduit pp = new PrixProduit(0, null, pu.get(i), p.id);
+                pp.create(connect);
                 produits.add(p);
+                i++;
             }
         } catch (Exception e) {
             throw e;
