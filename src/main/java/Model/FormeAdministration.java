@@ -65,7 +65,7 @@ public class FormeAdministration {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // // c.closeBD();
             throw e;
         }
         

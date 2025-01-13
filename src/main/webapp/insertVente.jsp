@@ -34,54 +34,94 @@
 
 <body>
     <%@ include file="sidebar.jsp" %>
+    <% List<Produit> produits = (List<Produit>) request.getAttribute("produits"); %>
 
     <main id="main" class="main">
         <section class="section">
-            <div class="row">
-            <div class="col-lg-6">
-
-                <div class="card">
-                <div class="card-body"> 
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
                     <h5 class="card-title">Insertion Vente</h5>
-
                     <!-- General Form Elements -->
-                    <form>
+                    <form id="venteForm" action="ListeVente" method="post">
                         <div id="produit-form" class="produit-section">
-                            <div class="row mb-3">
+                            <div class="row mb-3 produit-item">
                                 <label class="col-sm-2 col-form-label">Produit</label>
                                 <div class="col-sm-10">
                                     <select class="form-select" name="produit[]" aria-label="Default select example">
                                         <option selected>Produit</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <% for (Produit p : produits) { %>
+                                        <option value="<%= p.getId() %>"><%= p.getNom() %></option>
+                          <% } %>
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <label for="inputText" class="col-sm-2 col-form-label">Quantite</label>
+                            <div class="row mb-3 produit-item">
+                                <label for="inputText" class="col-sm-2 col-form-label">Quantité</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="quantite[]">
                                 </div>
-                                <div class="col-sm-3" onclick="addProduit()">
-                                    <button class="btn btn-primary">Ajouter</button>
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn btn-primary add-produit">Ajouter</button>
                                 </div>
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Inserer</button>
+                                <button type="submit" class="btn btn-primary">Insérer</button>
                             </div>
                         </div>
-
-                    </form><!-- End General Form Elements -->
-
+                    </form>
                 </div>
-                </div>
-
             </div>
-        </section>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const produitForm = document.getElementById("produit-form");
+
+        // Fonction pour ajouter un nouvel ensemble de champs produit/quantité
+        const addProduit = () => {
+            const produitItem = document.createElement("div");
+            produitItem.className = "row mb-3 produit-item";
+
+            produitItem.innerHTML = `
+                <label class="col-sm-2 col-form-label">Produit</label>
+                <div class="col-sm-10">
+                    <select class="form-select" name="produit[]" aria-label="Default select example">
+                        <option selected>Produit</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <label for="inputText" class="col-sm-2 col-form-label">Quantité</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="quantite[]">
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-danger remove-produit">Supprimer</button>
+                </div>
+            `;
+
+            produitForm.appendChild(produitItem);
+        };
+
+        // Gestionnaire pour ajouter des produits
+        produitForm.addEventListener("click", (event) => {
+            if (event.target.classList.contains("add-produit")) {
+                addProduit();
+            } else if (event.target.classList.contains("remove-produit")) {
+                const itemToRemove = event.target.closest(".produit-item");
+                produitForm.removeChild(itemToRemove);
+            }
+        });
+    });
+</script>
+
     </main><!-- End #main -->
 
   <!-- Vendor JS Files -->
@@ -96,21 +136,6 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-    <script>
-        function addProduit() {
-            const section = document.getElementById('produit-form');
-            const newIndex = section.children.length; // Obtenir le prochain index
-
-            const newProduitEntry = document.querySelector('.produit-section').cloneNode(true);
-            newProduitEntry.querySelector('select[name="produit[]"]').name = `produit[${newIndex}]`;
-            newProduitEntry.querySelector('input[name="quantite"]').name = `quantite[${newIndex}]`;
-
-            // Réinitialiser les valeurs des champs
-            newProduitEntry.querySelector('input[name="quantite"]').value = '';
-            newProduitEntry.querySelector('select[name="produit[]"]').value = '';
-
-            section.appendChild(newProduitEntry);
-        }
-    </script>
+    
 </body>
 </html>

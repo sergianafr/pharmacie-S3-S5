@@ -81,6 +81,25 @@ List<Pays> listPays = (List<Pays>) request.getAttribute("pays");
                     <!-- End Insertion Form Section -->
                 </div>
             </div>
+            <div class="row">
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Pays</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            <% 
+                for(Laboratoire l : listLaboratoire){%>
+                        <tr>
+                            <td><%=l.getNom()%></td>
+                            <td><%=l.getPays()%></td>
+                        </tr>
+            <%  }%>
+                    </tbody>
+                </table>
+            </div> 
         </section>
     </main>
 

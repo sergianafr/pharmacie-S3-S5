@@ -61,7 +61,7 @@ public class Produit {
             generatedKeys.close();
             preparedStatement.close();
 
-            c.getConnex().commit();
+            // c.getConnex().commit();
         } catch (Exception e) {
             throw e;
         }
@@ -107,7 +107,7 @@ public class Produit {
             return results;
             
         } catch (Exception e) {
-            // c.closeBD();
+            // // c.closeBD();
             throw e;
         }
     }

@@ -48,8 +48,115 @@ List<Age> ages = (List<Age>)request.getAttribute("ages");
     <%@ include file="sidebar.jsp" %>
     <main id="main" class="main">
         <section class="section">
-             <form action="ListeMedicament" method="post">
-                <!-- etape 1 : Informations generales -->
+            <form action="ListeMedicament" method="post" class="container mt-4">
+                <!-- Etape 1 : Informations générales -->
+                <h3 class="mb-3">Informations sur le médicament</h3>
+
+                <div class="form-group mb-3">
+                    <label for="nom" class="form-label">Nom du médicament :</label>
+                    <input type="text" id="nom" name="nom" class="form-control" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="laboratoire" class="form-label">Laboratoire :</label>
+                    <select id="laboratoire" name="laboratoire" class="form-select" required>
+                        <option value="">-- Sélectionnez un laboratoire --</option>
+                        <% for(Laboratoire lab : laboratoires) { %>
+                            <option value="<%= lab.getId() %>"><%= lab.getNom() %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="type" class="form-label">Type de médicament :</label>
+                    <select id="type" name="type" class="form-select">
+                        <% for(TypeObjet type : types) { %>
+                            <option value="<%= type.getId() %>"><%= type.getNom() %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="maladies" class="form-label">Maladies cible :</label>
+                    <select id="maladies" name="maladies[]" class="form-select" multiple required>
+                        <% for(Maladie mala : maladies) { %>
+                            <option value="<%= mala.getId() %>"><%= mala.getNom() %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="ages" class="form-label">Tranche d'âge :</label>
+                    <select id="ages" name="ages[]" class="form-select" multiple required>
+                        <% for(Age age : ages) { %>
+                            <option value="<%= age.getId() %>"><%= age.getNom() %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input type="checkbox" id="surOrdonnance" name="surOrdonnance" class="form-check-input" value="true">
+                    <label for="surOrdonnance" class="form-check-label">Sur ordonnance</label>
+                </div>
+
+                <!-- Etape 2 : Formes et modes d'administration -->
+                <h3 class="mb-3">Formes et modes d'administration</h3>
+
+                <div id="forme-admin-section">
+                    <div class="row g-3 mb-3 forme-admin">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="forme" class="form-label">Forme :</label>
+                                <select class="form-select forme" name="forme[]" onchange="loadModes(this)" required>
+                                    <option value="">-- Sélectionnez une forme --</option>
+                                    <% for(Forme lab : formes) { %>
+                                        <option value="<%= lab.getId() %>"><%= lab.getNom() %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="mode" class="form-label">Mode d'administration :</label>
+                                <select class="form-select mode" name="mode[]" required>
+                                    <option value="">-- Sélectionnez un mode d'administration --</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="dosage" class="form-label">Dosage :</label>
+                                <input type="number" step="0.01" name="dosage" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="unite" class="form-label">Unité :</label>
+                                <select name="unite[]" class="form-select" required>
+                                    <option value="1">mg</option>
+                                    <option value="2">ml</option>
+                                    <option value="3">unité</option>
+                                    <option value="4">g</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="prixUnitaire" class="form-label">Prix unitaire :</label>
+                            <input type="number" step="0.01" name="prixUnitaire" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <button type="button" class="btn btn-secondary" onclick="addFormeAdmin()">Ajouter une autre forme/mode</button>
+                </div>
+
+                <hr>
+
+                <!-- Bouton de soumission -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Enregistrer le médicament</button>
+                </div>
+            </form>
+
+             <%-- <form action="ListeMedicament" method="post">
                 <h3>Informations sur le medicament</h3>
                 <label for="nom">Nom du medicament :</label>
                 <input type="text" id="nom" name="nom" required>
@@ -60,6 +167,12 @@ List<Age> ages = (List<Age>)request.getAttribute("ages");
         <%      for(Laboratoire lab : laboratoires){%>
                     <option value="<%=lab.getId()%>"><%=lab.getNom()%></option>
         <%      }%> 
+                </select>
+                <label for="type">Type medicament</label>
+                <select name="type" id="type">
+                    <% for (TypeObjet type : types) { %>
+                        <option value="<%= type.getId() %>"><%= type.getNom() %></option>
+                    <% } %>
                 </select>
                 <label for="maladie">Maladies cible :</label>
                 <select name="maladies[]" id="maladies" multiple required>
@@ -73,9 +186,8 @@ List<Age> ages = (List<Age>)request.getAttribute("ages");
                         <option value="<%= age.getId() %>"><%= age.getNom() %></option>
                     <% } %>
                 </select>
-                <%-- <hr> --%>
+                <input type="checkbox" name="surOrdonnance" value="true"> Sur ordonnance
 
-                <!-- etape 2 : Forme et mode d'administration -->
                  <h3>Formes et modes d'administration</h3>
                 <div id="forme-admin-section">
                     <div class="forme-admin">
@@ -90,7 +202,6 @@ List<Age> ages = (List<Age>)request.getAttribute("ages");
                         <label for="mode">Mode d'administration :</label>
                         <select class="mode" name="mode[]" id="mode" required>
                             <option value="">Selectionnez un mode administration</option>
-                            <!-- Options filtrees dynamiquement en fonction de la forme -->
                         </select>
                         <label for="dosage">Dosage :</label>
                         <input type="number" step="0.01" name="dosage" required>
@@ -101,7 +212,6 @@ List<Age> ages = (List<Age>)request.getAttribute("ages");
                             <option value="2">ml</option>
                             <option value="3">unite</option>
                             <option value="3">g</option> 
-                            <!-- Ajouter d'autres unites si necessaire -->
                         </select>
 
                     </div>
@@ -110,9 +220,8 @@ List<Age> ages = (List<Age>)request.getAttribute("ages");
 
                 <hr>
 
-                <!-- Bouton de soumission -->
                 <button type="submit">Enregistrer le medicament</button>
-            </form>
+            </form> --%>
             <%-- <form action="ListeMedicament" method="post" class="container mt-4">
     <h3 class="mb-4">Informations sur le médicament</h3>
 

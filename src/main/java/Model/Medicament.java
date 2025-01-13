@@ -14,6 +14,7 @@ public class Medicament {
     public String nom;
     // public int idProduit;
     public int idLaboratoire;
+    public int idTypeMedicament;
     public Date dateInsertion;
     private String nomLaboratoire; 
 
@@ -41,6 +42,20 @@ public class Medicament {
     public List<QuantiteMedoc> getQuantites() {
         return quantites;
     }
+
+    public int getIdTypeMedicament() {
+        return idTypeMedicament;
+    }public List<Produit> getProduits() {
+        return produits;
+    }
+    public void setIdTypeMedicament(int idTypeMedicament) {
+        this.idTypeMedicament = idTypeMedicament;
+    }public void setProduits(List<Produit> produits) {
+        this.produits = produits;
+    }public void setSurOrdonnance(boolean surOrdonnance) {
+        this.surOrdonnance = surOrdonnance;
+    }
+    
     public void setQuantites(List<QuantiteMedoc> quantites) {
         this.quantites = quantites;
     }
@@ -121,7 +136,7 @@ public class Medicament {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }
@@ -273,7 +288,6 @@ public class Medicament {
             insertProduit(c);
             insertQuantiteMedoc(c);
         } catch (Exception e) {
-            c.rollback();
             throw e;
         }
     }

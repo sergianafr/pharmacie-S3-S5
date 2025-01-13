@@ -61,7 +61,6 @@ public class Forme {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
             throw e;
         }
     }

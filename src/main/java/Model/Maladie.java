@@ -74,7 +74,7 @@ public class Maladie {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }
@@ -106,7 +106,7 @@ public class Maladie {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }

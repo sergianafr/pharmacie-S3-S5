@@ -53,7 +53,7 @@ public class Age {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // // c.closeBD();
             throw e;
         }
     }
@@ -83,7 +83,7 @@ public class Age {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // // c.closeBD();
             throw e;
         }
     }

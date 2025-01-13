@@ -13,7 +13,14 @@
     </target>
 
 ## Commandes utiles
-- ant clean deploy: deploie le projet vers tomcat 
+- ant clean deploy: deploie le projet vers tomcat
+
+## A inserer dans la base dans cet ordre:
+- schema.sql
+- views.sql
+- triggers.sql
+- functions.sql
+- data.sql
 
 ## lien pour aller vers le projet:
 - localhost:8080\pharmacie

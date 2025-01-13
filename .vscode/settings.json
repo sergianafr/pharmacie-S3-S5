@@ -1,8 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\lib\\servlet-api.jar",
-        "c:\\Users\\SERGIANA\\Documents\\Drivers\\postgresql-42.6.0.jar",
-        "c:\\Users\\SERGIANA\\Documents\\NetBeansProjects\\Pharmacie\\build\\web\\WEB-INF\\lib\\gson-2.8.2.jar"
-    ]
-}

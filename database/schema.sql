@@ -140,7 +140,7 @@ CREATE TABLE Hygiene(
    PRIMARY KEY(id),
    UNIQUE(nom),
    FOREIGN KEY(id_produit) REFERENCES Produit(id),
-   FOREIGN KEY(id_laboratoire) REFERENCES Laboratoire(id)
+   FOREIGN KEY(id_laboratoire) REFERENCES Laboratoire(id )
 );
 CREATE TABLE Type_Medicament (
    id SERIAL PRIMARY KEY,
@@ -156,24 +156,20 @@ CREATE TABLE Medicament(
    FOREIGN KEY(id_laboratoire) REFERENCES Laboratoire(id),
    FOREIGN KEY(id_type_medicament) REFERENCES Type_medicament(id)
 );
--- CREATE TABLE age_medicament(
---    id SERIAL, 
---    id_medicament INTEGER NOT NULL,
---    id_age INTEGER NOT NULL,
---    PRIMARY KEY(id),
---    FOREIGN KEY(id_medicament) REFERENCES Medicament(id),
---    FOREIGN KEY(id_age) REFERENCES Age(id)
--- );
+CREATE TABLE age_medicament(
+   id SERIAL, 
+   id_medicament INTEGER NOT NULL,
+   id_age INTEGER NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(id_medicament) REFERENCES Medicament(id),
+   FOREIGN KEY(id_age) REFERENCES Age(id)
+);
 CREATE TABLE forme_admin_medoc(
    id SERIAL,
    id_medicament INTEGER NOT NULL,
-   id_forme INTEGER,
-   id_administration INTEGER,
    id_forme_administration INTEGER,
    PRIMARY KEY(id),
    FOREIGN KEY(id_medicament) REFERENCES Medicament(id),
-   FOREIGN KEY(id_forme) REFERENCES Forme(id),
-   FOREIGN KEY(id_administration) REFERENCES Administration(id),
    FOREIGN KEY(id_forme_administration) REFERENCES Forme_administration(id)
 );
 CREATE TABLE quantite_medoc(
@@ -198,11 +194,18 @@ CREATE TABLE Maladie_medicament(
 
 CREATE TABLE mvt_stock(
    id serial primary key, 
-   date_insertion date,
+   date_insertion date default CURRENT_DATE,
    date_fabrication date,
    date_peremption date,
-   qte_entree double precision,
-   qte_sortie double precision,
+   qte_entree double precision default 0.0,
+   qte_sortie double precision default 0.0,
+   id_produit integer references produit(id)
+);
+
+CREATE TABLE dosage_produit(
+   id serial primary key,
+   dosage double precision default 0.0,
+   id_unite integer references unite(id),
    id_produit integer references produit(id)
 );
 

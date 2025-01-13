@@ -32,7 +32,7 @@ public class VenteDetail {
     }
 
     // Getters et Setters
-
+    public VenteDetail(){}
     
     @Override
     public String toString() {
@@ -64,7 +64,7 @@ public class VenteDetail {
             throw e;
         }
     }
-    
+     
 
 
     public int getId() {
@@ -152,7 +152,7 @@ public class VenteDetail {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }
@@ -170,7 +170,10 @@ public class VenteDetail {
         try {
             String sql = "SELECT * FROM filter_ventedetail_by_forme_age(?, ?)";
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
+            preparedStatement.setInt(1, id_forme);
+            preparedStatement.setInt(2, id_age);
             ResultSet rs = preparedStatement.executeQuery();
+
             
             List<VenteDetail> results = new ArrayList<VenteDetail>();
             while(rs.next()){
@@ -192,7 +195,7 @@ public class VenteDetail {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }

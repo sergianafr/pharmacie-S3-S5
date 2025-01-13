@@ -52,7 +52,7 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
                         <label for="validationDefault01" class="form-label">Filtrer</label>
                     </div>
                     <div class="col-md-4">
-                        <select class="form-select" id="validationDefault04" required name="age">
+                        <select class="form-select" id="validationDefault04" name="age">
                           <option selected disabled value="">Tranche age</option>
                           <option value="0">-- Sélectionnez une tranche d'âge --</option>
                           <% for (Age m : listAge) { %>
@@ -61,7 +61,7 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
                         </select>
                       </div>
                     <div class="col-md-4">
-                        <select class="form-select" id="validationDefault04" name="forme" required>
+                        <select class="form-select" id="validationDefault04" name="forme" >
                           <option selected disabled value="">administrations</option>
                           <option value="0">-- Sélectionnez un mode d'administration--</option>
                           <% for (Administration m : listAdministration) { %>
@@ -74,6 +74,7 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
                     </div>
 
                 </form><!-- End General Form Elements -->
+                
                 <!-- Default Table -->
                 <button class="btn btn-primary"><a href="GetVente?type=insertion">Inserer</a></button>
 
@@ -98,27 +99,7 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
                       <td><%=ve.getPrixTotal()%></td>
                     </tr>
         <%  }%>
-                    <tr>
-                      <td>parcateamol</td>
-                      <td>1500</td>
-                      <td>04/06/24</td>
-                      <td>3</td>
-                      <td>4500</td>
-                    </tr>
-                    <tr>
-                        <td>parcateamol</td>
-                        <td>1500</td>
-                        <td>04/06/24</td>
-                        <td>3</td>
-                        <td>4500</td>
-                      </tr>
-                      <tr>
-                        <td>parcateamol</td>
-                        <td>1500</td>
-                        <td>04/06/24</td>
-                        <td>3</td>
-                        <td>4500</td>
-                      </tr>
+                    
                   </tbody>
                 </table>
                 <!-- End Default Table Example -->

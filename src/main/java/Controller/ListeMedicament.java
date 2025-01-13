@@ -132,6 +132,7 @@ public class ListeMedicament extends HttpServlet {
         String nom = request.getParameter("nom");
         String laboratoire = request.getParameter("laboratoire");
 
+        String type = request.getParameter("type");
         String[] formes = request.getParameterValues("forme[]");
         String[] modes = request.getParameterValues("mode[]");
 
@@ -143,7 +144,7 @@ public class ListeMedicament extends HttpServlet {
 
         String[] ages = request.getParameterValues("ages[]");
 
-
+        String surOrdonnance = request.getParameter("surOrdonnance");
         Connect connect = new Connect();
         try {
             connect.connectToPostgres();
@@ -155,7 +156,8 @@ public class ListeMedicament extends HttpServlet {
             Medicament medicament = new Medicament();
             medicament.setNom(nom);
             medicament.setIdLaboratoire(Integer.parseInt(laboratoire));
-
+            medicament.setIdTypeMedicament(Integer.parseInt(type));
+            medicament.setSurOrdonnance(Boolean.valueOf(surOrdonnance));
             List<FormeAdministration> formesAdmin = new ArrayList<FormeAdministration>();
             List<QuantiteMedoc> quantites = new ArrayList<QuantiteMedoc>();
             List<Maladie> listeMal = new ArrayList<Maladie>();
@@ -195,6 +197,7 @@ public class ListeMedicament extends HttpServlet {
             medicament.validerInsert(connect);
             connect.getConnex().commit();
             doGet(request, response);
+            
             // response.sendRedirect("confirmation.jsp");
         } catch (Exception e) {
             if(connect.getConnex()!=null){connect.rollback();}
