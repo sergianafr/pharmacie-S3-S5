@@ -1,6 +1,12 @@
 package Model;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import DbUtils.Connect;
 
 public class EtatStock {
     private int idProduit;
@@ -66,6 +72,34 @@ public class EtatStock {
                 ", datePeremption=" + datePeremption +
                 ", qteDispo=" + qteDispo +
                 '}';
+    }
+    public static  List<EtatStock> getAll(Connect c) throws Exception{
+        try {
+            String sql = "SELECT * FROM V_Etat_Stock";
+            PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            List<EtatStock> results = new ArrayList<EtatStock>();
+            while(rs.next()){
+                System.out.println(rs);
+                int idProduit = rs.getInt(1);
+                String nom = rs.getString(2);
+                Date datePeremption = rs.getDate(3);
+                double qteEntree = rs.getDouble(4);
+                double qteSortie = rs.getDouble(5);
+                double qteDispo = rs.getDouble(6);
+                EtatStock objet = new EtatStock(idProduit, nom, datePeremption, qteEntree, qteSortie, qteDispo);
+                
+                results.add(objet);   
+            }
+            preparedStatement.close();
+            rs.close();
+            return results;
+            
+        } catch (Exception e) {
+            // c.closeBD();
+            throw e;
+        }
     }
 
     

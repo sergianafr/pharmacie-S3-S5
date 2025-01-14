@@ -53,6 +53,12 @@
           <span>Laboratoires</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link " href="ListeStock">
+          <i class="bi bi-grid"></i>
+          <span>Stock</span>
+        </a>
+      </li>
       <%-- Section produit --%>
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">

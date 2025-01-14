@@ -53,7 +53,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Insertion Vente</h5>
                     <!-- General Form Elements -->
-                    <form id="venteForm" action="ListeVente" method="post">
+                    <form id="venteForm" action="GetVente" method="post">
                         <div id="produit-form" class="produit-section">
                             <div class="row mb-3 produit-item">
                                 <label class="col-sm-2 col-form-label">Produit</label>
