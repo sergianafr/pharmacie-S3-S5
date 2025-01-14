@@ -148,14 +148,14 @@ CREATE TABLE Medicament(
    FOREIGN KEY(id_laboratoire) REFERENCES Laboratoire(id),
    FOREIGN KEY(id_type_medicament) REFERENCES Type_medicament(id)
 );
--- CREATE TABLE age_medicament(
---    id SERIAL, 
---    id_medicament INTEGER NOT NULL,
---    id_age INTEGER NOT NULL,
---    PRIMARY KEY(id),
---    FOREIGN KEY(id_medicament) REFERENCES Medicament(id),
---    FOREIGN KEY(id_age) REFERENCES Age(id)
--- );
+CREATE TABLE age_medicament(
+   id SERIAL, 
+   id_medicament INTEGER NOT NULL,
+   id_age INTEGER NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(id_medicament) REFERENCES Medicament(id),
+   FOREIGN KEY(id_age) REFERENCES Age(id)
+);
 CREATE TABLE forme_admin_medoc(
    id SERIAL,
    id_medicament INTEGER NOT NULL,

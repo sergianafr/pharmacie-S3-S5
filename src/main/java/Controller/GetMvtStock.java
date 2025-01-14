@@ -8,6 +8,8 @@ package Controller;
 import DbUtils.Connect;
 import Model.Laboratoire;
 import Model.Pays;
+import Model.MvtStock;
+import Model.Produit;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,8 +23,8 @@ import java.util.List;
  * Servlet pour gérer les laboratoires
  * @author Ny Ando
  */
-@WebServlet("/GetLaboratoire")
-public class GetLaboratoire extends HttpServlet {
+@WebServlet("/GetMvtStock")
+public class GetMvtStock extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -39,13 +41,11 @@ public class GetLaboratoire extends HttpServlet {
         try {
             con.connectToPostgres();
 
-            List<Laboratoire> listLaboratoire = Laboratoire.getAll(con);
-            List<Pays> listPays = Pays.getAll(con);
+            List<Produit> Produit = Produit.getAll(con);
 
-            request.setAttribute("laboratoires", listLaboratoire);
-            request.setAttribute("pays", listPays);
+            request.setAttribute("Produit", Produit);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("InsertionLaboratoire.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("InsertionStock.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

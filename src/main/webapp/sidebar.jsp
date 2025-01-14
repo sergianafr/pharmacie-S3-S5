@@ -63,6 +63,11 @@
               <i class="bi bi-circle"></i><span>Laboratoires</span>
             </a>
           </li>
+          <li>
+            <a href="GetMvtStock">
+              <i class="bi bi-circle"></i><span>Stock</span>
+            </a>
+          </li>
         </ul>
       </li>
       
