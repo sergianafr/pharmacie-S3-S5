@@ -116,25 +116,5 @@ public class Produit {
         }
     }
 
-    public static List<Produit> getAll(Connect c) throws Exception {
-        List<Produit> produits = new ArrayList<>();
-        String query = "SELECT id, nom, sur_ordonnance, id_categorie FROM produit";
-        try (Connection conn = c.getConnex();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nom = rs.getString("nom");
-                boolean surOrdonnance = rs.getBoolean("sur_ordonnance");
-                int idCategorie = rs.getInt("id_categorie");
-
-                Produit produit = new Produit(id, nom, surOrdonnance, idCategorie);
-                produits.add(produit);
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return produits;
-    }
+   
 }

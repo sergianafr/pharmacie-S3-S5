@@ -41,11 +41,11 @@ public class GetMvtStock extends HttpServlet {
         try {
             con.connectToPostgres();
 
-            List<Produit> Produit = Produit.getAll(con);
+            List<Produit> produit = Produit.getAll(con);
 
-            request.setAttribute("Produit", Produit);
+            request.setAttribute("Produit", produit);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("InsertionStock.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("insertionStock.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

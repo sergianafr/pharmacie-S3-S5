@@ -22,8 +22,8 @@ import java.util.List;
  * Servlet pour gérer les laboratoires
  * @author Ny Ando
  */
-@WebServlet("/GetLaboratoire")
-public class GetLaboratoire extends HttpServlet {
+@WebServlet("/GetProduitMois")
+public class GetProduitMois extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -39,14 +39,11 @@ public class GetLaboratoire extends HttpServlet {
         Connect con = new Connect();
         try {
             con.connectToPostgres();
-            // List<Produit> p=Produit.getAll(con)
-            List<Laboratoire> listLaboratoire = Laboratoire.getAll(con);
-            List<Pays> listPays = Pays.getAll(con);
+            List<Produit> listProduit = Produit.getAll(con);
 
-            request.setAttribute("laboratoires", listLaboratoire);
-            request.setAttribute("pays", listPays);
+            request.setAttribute("produits", listProduit);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("InsertionLaboratoire.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("listeProduitsMois.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,36 +67,36 @@ public class GetLaboratoire extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Connect con = new Connect();
-        try {
-            con.connectToPostgres();
+    // @Override
+    // protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    //         throws ServletException, IOException {
+    //     Connect con = new Connect();
+    //     try {
+    //         con.connectToPostgres();
 
-            String nomLaboratoire = request.getParameter("nomLaboratoire");
-            int idPaysOrigine = Integer.parseInt(request.getParameter("idPaysOrigine"));
+    //         String nomLaboratoire = request.getParameter("nomLaboratoire");
+    //         int idPaysOrigine = Integer.parseInt(request.getParameter("idPaysOrigine"));
 
-            Laboratoire laboratoire = new Laboratoire();
-            laboratoire.setNom(nomLaboratoire);
-            laboratoire.setId_pays_origine(idPaysOrigine);
+    //         Laboratoire laboratoire = new Laboratoire();
+    //         laboratoire.setNom(nomLaboratoire);
+    //         laboratoire.setId_pays_origine(idPaysOrigine);
 
-            laboratoire.insert(con);
+    //         laboratoire.insert(con);
 
-            response.sendRedirect("GetLaboratoire");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        } finally {
-            if (con != null) {
-                try {
-                    con.closeBD();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+    //         response.sendRedirect("GetLaboratoire");
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    //     } finally {
+    //         if (con != null) {
+    //             try {
+    //                 con.closeBD();
+    //             } catch (Exception e) {
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     }
+    // }
 
     /**
      * Returns a short description of the servlet.
