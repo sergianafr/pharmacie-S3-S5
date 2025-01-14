@@ -146,7 +146,7 @@ BEGIN
       WHERE id_produit = NEW.id_produit
         AND date_trunc('month', date_debut) = date_trunc('month', NEW.date_debut)
    ) THEN
-      RAISE EXCEPTION 'L''id_produit % existe déjà pour ce mois.', NEW.id_produit;
+      RAISE EXCEPTION 'Le produit % existe deja pour ce mois.', NEW.id_produit;
    END IF;
 
    RETURN NEW;

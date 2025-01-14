@@ -228,3 +228,5 @@ CREATE TABLE conseil_mois(
    date_debut date default CURRENT_DATE,
    date_fin date
 );
+
+-- INSERT INTO conseil_mois(id_produit) VALUES(3);

@@ -41,6 +41,65 @@ List<ConseilMois> listProduits = (List<ConseilMois>) request.getAttribute("produ
 
 <main id="main" class="main">
     <section class="section">
+    <div class="container mt-5">
+        <!-- Formulaire de filtrage -->
+        <div class="row mb-4">
+            <form class="row g-3" action="GetProduitMois" method="get">
+                <div class="col-md-6">
+                    <label for="dateMin" class="form-label">Date min</label>
+                    <input type="date" class="form-control" id="dateMin" name="dateMin" placeholder="YYYY-MM-DD">
+                </div>
+                <div class="col-md-6">
+                    <label for="dateMax" class="form-label">Date max</label>
+                    <input type="date" class="form-control" id="dateMax" name="dateMax" placeholder="YYYY-MM-DD">
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Titre et bouton d'insertion -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="card-title">Liste des Produits du Mois</h5>
+            <a href="GetInsertionProduitsMois" class="btn btn-success">Ajouter un Produit</a>
+        </div>
+
+        <!-- Table des produits -->
+        <div class="table-responsive">
+            <table class="table table-data">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Sur ordonnance</th>
+                        <th>Catégorie</th>
+                        <th>Prix unitaire</th>
+                        <th>Date début</th>
+                        <th>Date fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                        for (ConseilMois l : listProduits) { 
+                    %>
+                        <tr>
+                            <td><%= l.getNom() %></td>
+                            <td><%= l.surOrdonnance() ? "Oui" : "Non" %></td>
+                            <td><%= l.getNomCategorie() %></td>
+                            <td><%= l.getMontant() %></td>
+                            <td><%= l.getDateDebut() %></td>
+                            <td><%= l.getDateFin() %></td>
+                        </tr>
+                    <% 
+                        } 
+                    %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+    <%-- <section class="section">
         <div class="row">
             <form class="row g-3" action="GetProduitMois" method="get">
                 <div class="col-md-6">
@@ -99,7 +158,7 @@ List<ConseilMois> listProduits = (List<ConseilMois>) request.getAttribute("produ
                     
             </div>
         </div>
-    </section>
+    </section> --%>
 </main><!-- End #main -->
 
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
