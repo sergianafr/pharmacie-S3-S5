@@ -62,6 +62,11 @@ public class ConseilMois {
         this.montant = montant;
         this.nomCategorie = nomCategorie;
     }
+    public ConseilMois()
+    {
+
+        
+    }
     public Date getDateDebut() {
         return dateDebut;
     }public Date getDateFin() {

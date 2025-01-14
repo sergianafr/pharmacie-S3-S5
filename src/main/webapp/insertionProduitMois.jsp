@@ -37,11 +37,11 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
                             <h5 class="card-title">Insertion Produit du Mois</h5>
 
                             <!-- General Form Elements -->
-                            <form action="GetLaboratoire" method="POST">
+                            <form action="GetInsertionProduitsMois" method="POST">
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Produits</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select" aria-label="Default select example" id="produit" name="produits">
+                                        <select class="form-select" aria-label="Default select example" id="produit" name="produit">
                                             <option selected>Open this select menu</option>
                                             <% 
                                             if (listProduits != null && !listProduits.isEmpty()) {

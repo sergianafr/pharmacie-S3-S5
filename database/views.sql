@@ -33,4 +33,4 @@ WHERE pp.date_insertion = (
     WHERE id_produit = p.id
 );
 
-AND cm.date_fin >= CURRENT_DATE AND cm.date_debut<= CURRENT_DATE
+-- AND cm.date_fin >= CURRENT_DATE AND cm.date_debut<= CURRENT_DATE
