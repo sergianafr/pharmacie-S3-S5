@@ -42,7 +42,20 @@ List<ConseilMois> listProduits = (List<ConseilMois>) request.getAttribute("produ
 <main id="main" class="main">
     <section class="section">
         <div class="row">
-  
+            <form class="row g-3" action="GetProduitMois" method="get">
+                <div class="col-md-6">
+                    <label for="texte" class="form-label">Date min</label>
+                    <input type="date" class="form-control" id="texte" name="dateMin" >
+                </div>
+
+                <!-- Champ Numérique avec Virgule -->
+                <div class="col-md-6">
+                    <label for="texte" class="form-label">Date max</label>
+                    <input type="date" class="form-control" id="texte" name="dateMax" >
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Liste Produit du mois</h5>                
