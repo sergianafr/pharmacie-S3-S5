@@ -222,6 +222,9 @@ CREATE TABLE vente_detail(
    id_vente integer references vente(id),
    id_produit integer references Produit(id)
 );
-
-
-
+CREATE TABLE conseil_mois(
+   id serial primary key,
+   id_produit integer references produit(id),
+   date_debut date default CURRENT_DATE,
+   date_fin date
+);

@@ -4,7 +4,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <% 
-List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
+List<ConseilMois> listProduits = (List<ConseilMois>) request.getAttribute("produits");
 %>
 
 <!DOCTYPE html>
@@ -58,16 +58,24 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
                                         <th>Sur ordonnance</th>
                                         <th>Categorie</th>                            
                                         <th>Prix unitaire</th>
+                                        <th>Date debut</th>                                        
+                                        <th>Date fin</th>
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
                         <% 
-                            for(Produit l : listProduits){%>
+                            for(ConseilMois l : listProduits){%>
                                     <tr>
                                         <td><%=l.getNom()%></td>
                                         <td><%=l.surOrdonnance()%></td>
                                         <td><%=l.getNomCategorie()%></td>
                                         <td><%=l.getMontant()%></td>
+                                        <td><%=l.getDateDebut()%></td>
+                                        <td><%=l.getDateFin()%></td>
+
+
                                     </tr>
                         <%  }%>
                                 </tbody>
