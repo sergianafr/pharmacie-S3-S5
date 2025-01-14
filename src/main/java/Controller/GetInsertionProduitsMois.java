@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DbUtils.Connect;
+import Model.Laboratoire;
 import Model.Produit;
 import Model.Vente;
 import Model.VenteDetail;
+import Model.ConseilMois;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,37 +40,33 @@ public class GetInsertionProduitsMois extends HttpServlet{
             connect.closeBD();
         }
     }
-    // @Override 
-    // protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    //         throws ServletException, IOException {
-    //     Connect con = new Connect();
-    //     try {
-    //         con.connectToPostgres();
-    //         String[] produits = request.getParameterValues("produit[]");
-    //         System.out.println(produits.length);
-    //         String[] quantites = request.getParameterValues("quantite[]");
-    //         System.out.println(quantites.length);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Connect con = new Connect();
+        try {
+            con.connectToPostgres();
 
-    //         List<VenteDetail> listeVente = new ArrayList<VenteDetail>();
-    //         for(int i=0; i<produits.length; i++) {
-    //             VenteDetail vente = new VenteDetail();
-    //             vente.setIdProduit(Integer.parseInt(produits[i]));
-    //             vente.setQte(Integer.parseInt(quantites[i]));
-    //             listeVente.add(vente);
-    //         }
-    //         Vente v = new Vente();
-    //         v.setVenteDetails(listeVente);
-    //         v.insertWDetails(con);
+            // int idProduit = Integer.valueOf(request.getParameter("produit"));
+            int idProduit = Integer.valueOf(request.getParameter("produit"));
 
-    //     } catch (Exception e) {
-            
-    //         request.setAttribute("error", e.getMessage());
-    //         // doGet(request, response);
-    //     }
-    //     finally{
-    //         con.closeBD();
-    //     }
-    //     doGet(request, response);
 
-    // }
+            ConseilMois conseil = new ConseilMois();
+            conseil.setIdProduit(idProduit);
+
+            conseil.create(con);
+
+            response.sendRedirect("GetProduitMois");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } finally {
+            if (con != null) {
+                try {
+                    con.closeBD();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
