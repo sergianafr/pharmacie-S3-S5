@@ -60,38 +60,51 @@ public class FormeAdminMedoc {
 
     public void getById(Connect c)throws Exception{
         try{
-        String sql = "select fam.*, a.nom as nom_administration, f.nom as nom_forme, m.nom as nom_medicament from Forme_admin_medoc fam join forme f on f.id=fam.id_forme join administration a on a.id = fam.id_administration join medicament m on fam.id_medicament = m.id where id = ? ";
+            String sql = """
+                SELECT 
+                    fam.*,
+                    a.nom as nom_administration, f.nom as nom_forme, m.nom as nom_medicament
+                FROM 
+                    forme_admin_medoc fam
+                JOIN 
+                    Forme_administration fa ON fam.id_forme_administration = fa.id
+                JOIN 
+                    Forme f ON fa.id_forme = f.id
+                JOIN 
+                    Administration a ON fa.id_administration = a.id
+                JOIN 
+                    Medicament m ON fam.id_medicament = m.id;
+                """;
+
+            // String sql = "select fam.*, a.nom as nom_administration, f.nom as nom_forme, m.nom as nom_medicament from Forme_admin_medoc fam join forme f on f.id=fam.id_forme join administration a on a.id = fam.id_administration join medicament m on fam.id_medicament = m.id where fam.id = ? ";
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
-            preparedStatement.setInt(1 , this.getId());
             ResultSet rs = preparedStatement.executeQuery();
 
             while(rs.next()){
                this.idMedicament = rs.getInt(2);
-               this.idForme = rs.getInt(3);
-               this.idAdministration = rs.getInt(4);
-               this.idFormeAdmin = rs.getInt(5);
-               this.nomAdministration = rs.getString(6);
-               this.nomForme = rs.getString(7);
-               this.nomMedicament = rs.getString(8);
+               this.idFormeAdmin = rs.getInt(3);
+               this.nomAdministration = rs.getString(4);
+               this.nomForme = rs.getString(5);
+               this.nomMedicament = rs.getString(6);
             }
             preparedStatement.close();
             rs.close();
             
         } catch (Exception e) {
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }
     public void create(Connect c)throws Exception{
         try {      
-            String Query = "INSERT INTO Forme_admin_medoc VALUES (default , ?, ?, ?, ?)";
+            String Query = "INSERT INTO Forme_admin_medoc VALUES (default , ?, ?)";
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(Query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, this.getIdMedicament());
-            preparedStatement.setInt(2, this.getIdForme());
-            preparedStatement.setInt(3, this.getIdAdministration());
-            preparedStatement.setInt(4, this.getIdFormeAdmin());
+            // preparedStatement.setInt(2, this.getIdForme());
+            // preparedStatement.setInt(3, this.getIdAdministration());
+            preparedStatement.setInt(2, this.getIdFormeAdmin());
             preparedStatement.executeUpdate();
-            
+             
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 this.id = generatedKeys.getInt(1); 

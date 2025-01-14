@@ -40,11 +40,11 @@ DECLARE
     qte_dispo double precision;
 BEGIN
     -- Récupérer la quantité disponible pour le produit et la date de péremption
-    SELECT sum(qte_dispo)
+    SELECT sum(v.qte_dispo)
     INTO qte_dispo
-    FROM v_etat_stock
-    WHERE id_produit = NEW.id_produit
-      AND date_peremption >= CURRENT_DATE; -- Ne considérer que les produits non périmés
+    FROM v_etat_stock v
+    WHERE v.id_produit = NEW.id_produit
+      AND v.date_peremption >= CURRENT_DATE; -- Ne considérer que les produits non périmés
 
     -- Si la quantité demandée dépasse la quantité disponible, lever une exception
     IF qte_dispo IS NULL OR qte_dispo < NEW.qte THEN
@@ -55,6 +55,7 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
 
 -- Création du trigger sur la table vente_detail
 CREATE TRIGGER trg_check_stock_availability

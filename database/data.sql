@@ -14,97 +14,6 @@ INSERT INTO FORME(nom, id_unite) VALUES
 ('SUPPOSITOIRE', 3), ('LAVEMENT', 2), ('OVULE', 1),
 ('CAPSULE', 1), ('AMPOULE', 2), ('AEROSOL', 2);
 
-INSERT INTO PAYS(nom) VALUES ('MADAGASCAR'),('FRANCE'), ('INDE');
-
-INSERT INTO Laboratoire (nom, id_pays_origine) VALUES
-('Laboratoire BioMad', 1),  -- Madagascar
-('Laboratoire Sanofi', 2),  -- France
-('Laboratoire Serum Institute', 3);  -- Inde
-
--- Insertion des types de médicaments dans la table Type_Medicament
-INSERT INTO Type_Medicament (nom) VALUES
-('Antibiotique'),
-('Antalgiques'),
-('Antiviraux'),
-('Anti-inflammatoires'),
-('Antifongiques'),
-('Anxiolytiques'),
-('Antipyretiques'),
-('Antiseptiques'),
-('Vitamines'),
-('Antidiabétiques');
-
--- Insertion des produits dans la table Produit
-INSERT INTO Produit (nom, sur_ordonnance, id_categorie) VALUES
-('Amoxicilline', TRUE, 1),  -- Catégorie 1: Antibiotique
-('Paracétamol', TRUE, 1),  -- Catégorie 2: Analgésique
-('Insuline', TRUE, 1);  -- Catégorie 3: Médicaments pour diabète
--- Insertion des médicaments dans la table Medicament
-INSERT INTO Medicament (nom, dateInsertion, id_laboratoire, id_type_medicament) VALUES
-('Amoxicilline', '2025-01-06',  1, 1),  -- Madagascar, Antibiotique
-('Doliprane', '2025-01-06', 2, 2),  -- France, Antalgiques
-('Insuline', '2025-01-06',  3, 10);  -- Inde, Antidiabétiques
-
-INSERT INTO Maladie (nom, est_contagieuse, est_grave, est_rare) VALUES
-('Grippe', TRUE, FALSE, FALSE),
-('Maux de gorge', TRUE, TRUE, FALSE),
-('Diabète', FALSE, TRUE, FALSE),
-('Varicelle', TRUE, FALSE, FALSE),
-('Cancer du poumon', FALSE, TRUE, FALSE),
-('Sclérose en plaques', FALSE, TRUE, TRUE),
-('Ebola', TRUE, TRUE, TRUE),
-('Paludisme', TRUE, TRUE, FALSE),
-('Migraine', FALSE, FALSE, FALSE),
-('Anémie', FALSE, FALSE, FALSE);
-
-INSERT INTO Age (nom) VALUES
-('Nouveau-ne & bebe'),
-('Enfant'),
-('Adolescent'),
-('Adulte'),
-('Personne agee');
-
-INSERT INTO Maladie_medicament (id_maladie, id_medicament) VALUES
-
-(1, 2), -- Grippe traitée par Doliprane
-(2, 1), -- Tuberculose traitée par Amoxicilline
-(3, 3), -- Diabète traité par Insuline
-(4, 2), -- Varicelle traitée par Doliprane
-(5, 1), -- Cancer du poumon traité par Amoxicilline
-(6, 3), -- Sclérose en plaques traitée par Insuline
-(7, 1), -- Ebola traité par Amoxicilline
-(8, 3), -- Paludisme traité par Insuline
-(9, 2), -- Migraine traitée par Doliprane
-(10, 2); -- Anémie traitée par Doliprane
-
-INSERT INTO age_maladie (id_maladie, id_age) VALUES
-(1, 3), -- Grippe fréquente chez les adolescents
-(2, 4), -- Tuberculose fréquente chez les adultes
-(3, 4), -- Diabète fréquent chez les adultes
-(4, 2), -- Varicelle fréquente chez les enfants
-(5, 5), -- Cancer du poumon fréquent chez les personnes âgées
-(6, 4), -- Sclérose en plaques fréquente chez les adultes
-(7, 4), -- Ebola fréquent chez les adultes
-(8, 2), -- Paludisme fréquent chez les enfants
-(9, 3), -- Migraine fréquente chez les adolescents
-(10, 4); -- Anémie fréquente chez les adultes
-
-INSERT INTO age_medicament (id_medicament, id_age) VALUES 
-(1, 2), -- Enfant
-(1, 4), -- Adulte
-(1, 1);
-
-INSERT INTO age_medicament (id_medicament, id_age) VALUES 
--- Doliprane (id_medicament = 2) est adapté aux nouveau-nés, enfants, et adultes
-(2, 1), -- Nouveau-né & bébé
-(2, 2), -- Enfant
-(2, 4); -- Adulte
-INSERT INTO age_medicament (id_medicament, id_age) VALUES 
--- Insuline (id_medicament = 3) est adapté aux adolescents, adultes, et personnes âgées
-(3, 3), -- Adolescent
-(3, 4), -- Adulte
-(3, 5); -- Personne âgée
-
 INSERT INTO Forme_administration (id_administration, id_forme) VALUES
 -- Administration ORALE
 (1, 1),  -- COMPRIME
@@ -148,3 +57,103 @@ INSERT INTO Forme_administration (id_administration, id_forme) VALUES
 -- Administration INHALEE
 (9, 18); -- AEROSOL
 
+
+INSERT INTO Age (nom) VALUES
+('Nouveau-ne & bebe'),
+('Enfant'),
+('Adolescent'),
+('Adulte'),
+('Personne agee');
+INSERT INTO PAYS(nom) VALUES ('MADAGASCAR'),('FRANCE'), ('INDE');
+
+INSERT INTO Laboratoire (nom, id_pays_origine) VALUES
+('Laboratoire BioMad', 1),  -- Madagascar
+('Laboratoire Sanofi', 2),  -- France
+('Laboratoire Serum Institute', 3);  -- Inde
+
+-- Insertion des types de médicaments dans la table Type_Medicament
+INSERT INTO Type_Medicament (nom) VALUES
+('Antibiotique'),
+('Antalgiques'),
+('Antiviraux'),
+('Anti-inflammatoires'),
+('Antifongiques'),
+('Anxiolytiques'),
+('Antipyretiques'),
+('Antiseptiques'),
+('Vitamines'),
+('Antidiabétiques');
+
+INSERT INTO Produit (nom, sur_ordonnance, id_categorie) VALUES
+('Paracétamol', TRUE, 1),  -- Catégorie MEDICAMENT
+('Gel désinfectant', FALSE, 2),  -- Catégorie HYGIENE
+('Sirop pour la toux', TRUE, 1),
+('Savon antiseptique', FALSE, 2);
+
+INSERT INTO prix_produit (date_insertion, montant, id_produit) VALUES
+('2025-01-01', 5000, 1), 
+('2025-01-01', 15000, 2),
+('2025-01-01', 8000, 3),
+('2025-01-01', 3000, 4);
+
+INSERT INTO age_produit (id_produit, id_age) VALUES
+(1, 4),  -- Paracétamol pour adulte
+(1, 5),  -- Paracétamol pour personne âgée
+(2, 2),  -- Gel désinfectant pour enfant
+(3, 3),  -- Sirop pour adolescent
+(4, 2);  -- Savon antiseptique pour enfant
+
+INSERT INTO Hygiene (nom, id_produit, id_laboratoire) VALUES
+('Gel Hydroalcoolique', 2, 1),  -- Produit lié à BioMad
+('Savon Désinfectant', 4, 2);  -- Produit lié à Sanofi
+
+INSERT INTO Medicament (nom, dateInsertion, id_laboratoire, id_type_medicament) VALUES
+('Ibuprofène', '2025-01-01', 2, 4),  -- Anti-inflammatoire, Sanofi
+('Amoxicilline', '2025-01-01', 3, 1),  -- Antibiotique, Serum Institute
+('Vitamine C', '2025-01-01', 1, 9);  -- Vitamine, BioMad
+
+INSERT INTO age_medicament (id_medicament, id_age) VALUES
+(1, 4),  -- Ibuprofène pour adulte
+(2, 3),  -- Amoxicilline pour adolescent
+(3, 5);  -- Vitamine C pour personne âgée
+
+INSERT INTO forme_admin_medoc (id_medicament, id_forme_administration) VALUES
+(1, 1),  -- Ibuprofène : Comprimé, Administration Orale
+(2, 2),  -- Amoxicilline : Gélule, Administration Orale
+(3, 3);  -- Vitamine C : Sirop, Administration Orale
+
+INSERT INTO quantite_medoc (qte, id_unite, id_forme_admin_medoc, id_produit) VALUES
+(500, 1, 1, 1),  -- Ibuprofène, 500 mg
+(250, 1, 2, 3),  -- Amoxicilline, 250 mg
+(100, 2, 3, 3);  -- Vitamine C, 100 ml
+
+INSERT INTO Maladie (nom, est_contagieuse, est_grave, est_rare) VALUES
+('Grippe', TRUE, FALSE, FALSE),
+('Maux de gorge', TRUE, TRUE, FALSE),
+('Diabète', FALSE, TRUE, FALSE),
+('Varicelle', TRUE, FALSE, FALSE),
+('Cancer du poumon', FALSE, TRUE, FALSE),
+('Sclérose en plaques', FALSE, TRUE, TRUE),
+('Ebola', TRUE, TRUE, TRUE),
+('Paludisme', TRUE, TRUE, FALSE),
+('Migraine', FALSE, FALSE, FALSE),
+('Anémie', FALSE, FALSE, FALSE);
+
+INSERT INTO Maladie_medicament (id_maladie, id_medicament) VALUES
+(1, 1),  -- Ibuprofène pour Grippe
+(2, 2),  -- Amoxicilline pour Maux de gorge
+(9, 3);  -- Vitamine C pour Migraine
+
+
+INSERT INTO mvt_stock (date_insertion, date_fabrication, date_peremption, qte_entree, qte_sortie, id_produit) VALUES
+('2025-01-01', '2024-12-01', '2025-12-01', 20, 0, 1), -- Produit 1
+('2025-01-02', '2024-11-15', '2025-11-15', 10, 0, 2), -- Produit 2
+('2025-01-03', '2024-12-10', '2025-06-10', 20, 0, 3), -- Produit 3
+('2025-01-04', '2024-10-01', '2025-10-01', 20, 0, 4); -- Produit 4
+
+INSERT INTO VENTE VALUES (default, CURRENT_DATE);
+
+INSERT INTO vente_detail (qte, id_vente, id_produit) VALUES
+(5,  1, 1), -- Vente 1, Produit 1
+(5,  1, 2),  -- Vente 1, Produit 2
+(7,1, 3);-- Vente 2, Produit 3

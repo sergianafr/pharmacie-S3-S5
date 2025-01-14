@@ -18,6 +18,7 @@ public class Vente {
         this.dateVente = dateVente;
     }
 
+    public Vente() {}
     public Date getDateVente() {
         return dateVente;
     }public int getId() {

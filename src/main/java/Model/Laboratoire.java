@@ -11,6 +11,14 @@ public class Laboratoire {
     private int id;
     private String nom;
     private int id_pays_origine;
+    private String pays;
+
+    public String getPays() {
+        return pays;
+    }
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
 
     public int getId() {
         return id;
@@ -37,7 +45,7 @@ public class Laboratoire {
 
     public static  List<Laboratoire> getAll(Connect c) throws Exception{
         try {
-            String sql = "SELECT * FROM Laboratoire";
+            String sql = "SELECT * FROM v_details_laboratoire";
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             
@@ -48,6 +56,7 @@ public class Laboratoire {
                 String nom = rs.getString(2);
                 int idPaysOrigine = rs.getInt(3);
                 Laboratoire objet = new Laboratoire(id, nom, idPaysOrigine);
+                objet.setPays(rs.getString(4));
                 results.add(objet);   
             }
             preparedStatement.close();
@@ -55,7 +64,7 @@ public class Laboratoire {
             return results;
             
         } catch (Exception e) {
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }

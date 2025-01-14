@@ -95,7 +95,7 @@ public class GetMedicament extends HttpServlet {
             e.printStackTrace();
         }
         finally{
-            c.closeBD();
+            // c.closeBD();
         }
     }
 

@@ -1,6 +1,22 @@
 CREATE OR REPLACE VIEW v_etat_stock AS
-SELECT id_produit, date_peremption, sum(qte_entree-qte_sortie) as qte_dispo
-from mvt_stock 
-group by id_produit, date_peremption;
+SELECT 
+id_produit, produit.nom, date_peremption, sum(qte_entree) as qte_entree, sum(qte_sortie) as qte_sortie, sum(qte_entree-qte_sortie) as qte_dispo
+from mvt_stock
+join produit on produit.id = mvt_stock.id_produit 
+group by id_produit, nom, date_peremption
+HAVING date_peremption >= CURRENT_DATE;
 
+CREATE OR REPLACE VIEW v_details_produit AS
+ SELECT p.*, Categorie.nom as nom_categorie, pp.montant
+            FROM Produit p
+            JOIN prix_produit pp ON p.id = pp.id_produit
+            JOIN categorie on p.id_categorie = categorie.id
+            WHERE pp.date_insertion = (
+                SELECT MAX(date_insertion)
+                FROM prix_produit
+                WHERE id_produit = p.id
+            );
 
+CREATE OR REPLACE VIEW v_details_laboratoire AS
+SELECT l.*, p.nom as pays from Laboratoire l
+join pays p on l.id_pays_origine = p.id;

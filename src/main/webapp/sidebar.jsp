@@ -38,16 +38,38 @@
       <li class="nav-item">
         <a class="nav-link " href="index.jsp">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Accueil</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
+      <li class="nav-item">
+        <a class="nav-link " href="ListeVente">
+          <i class="bi bi-grid"></i>
+          <span>Vente</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="GetLaboratoire">
+          <i class="bi bi-grid"></i>
+          <span>Laboratoires</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="ListeStock">
+          <i class="bi bi-grid"></i>
+          <span>Stock</span>
+        </a>
+      </li>
       <%-- Section produit --%>
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Produits</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="GetProduit">
+              <i class="bi bi-circle"></i><span>Tous</span>
+            </a>
+          </li>
           <li>
             <a href="ListeMedicament">
               <i class="bi bi-circle"></i><span>Medicaments</span>
@@ -59,11 +81,6 @@
             </a>
           </li>
           <li>
-            <a href="GetLaboratoire">
-              <i class="bi bi-circle"></i><span>Laboratoires</span>
-            </a>
-          </li>
-          <li>
             <a href="GetMvtStock">
               <i class="bi bi-circle"></i><span>Stock</span>
             </a>
@@ -71,12 +88,12 @@
         </ul>
       </li>
       
-      <li class="nav-item">
+      <%-- <li class="nav-item">
         <a href="ListeVente">
           <i class="bi bi-grid"></i>
           <span>Vente</span>
         </a>
-      </li>
+      </li> --%>
       <%-- End Section produit  --%>
     </ul>
 

@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import DbUtils.Connect;
 import Model.Administration;
 import Model.Age;
+import Model.Vente;
 import Model.VenteDetail;
 import jakarta.servlet.RequestDispatcher;
  
@@ -114,10 +115,38 @@ public class ListeVente extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+    @Override 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Connect con = new Connect();
+        try {
+            con.connectToPostgres();
+            String[] produits = request.getParameterValues("produit[]");
+            System.out.println(produits.length);
+            String[] quantites = request.getParameterValues("quantite[]");
+            System.out.println(quantites.length);
+
+            List<VenteDetail> listeVente = new ArrayList<VenteDetail>();
+            for(int i=0; i<produits.length; i++) {
+                VenteDetail vente = new VenteDetail();
+                vente.setIdProduit(Integer.parseInt(produits[i]));
+                vente.setQte(Integer.parseInt(quantites[i]));
+                listeVente.add(vente);
+            }
+            Vente v = new Vente();
+            v.setVenteDetails(listeVente);
+            v.insertWDetails(con);
+
+            doGet(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", e.getMessage());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("GetVente");
+            dispatcher.forward(request, response);
+        }
+        finally{
+            con.closeBD();
+        }
+
     }
 
     /**

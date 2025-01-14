@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>liste vente</title>
+    <title>liste stock</title>
   
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,72 +31,41 @@
   </head>
 </head>
 <body>
-<% List<VenteDetail> vd = (List<VenteDetail>)request.getAttribute("ventes");
-List<Age> listAge =(List<Age>) request.getAttribute("ages");
-List<Administration> listAdministration =(List<Administration>) request.getAttribute("administrations");
-
+<% List<EtatStock> stock = (List<EtatStock>)request.getAttribute("stocks");
 %>
 <%@ include file="sidebar.jsp" %>
 
 <main id="main" class="main">
     <section class="section">
         <div class="row">
-          <div class="col-lg-6">
   
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Liste Vente</h5>
+                <h5 class="card-title">Liste Stock</h5>
 
-                <form class="row g-3" action="ListeVente" method="get">
-                    <div class="col-md-3">
-                        <label for="validationDefault01" class="form-label">Filtrer</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select" id="validationDefault04" name="age">
-                          <option selected disabled value="">Tranche age</option>
-                          <option value="0">-- Sélectionnez une tranche d'âge --</option>
-                          <% for (Age m : listAge) { %>
-                              <option value="<%= m.getId() %>"><%= m.getNom() %></option>
-                          <% } %>
-                        </select>
-                      </div>
-                    <div class="col-md-4">
-                        <select class="form-select" id="validationDefault04" name="forme" >
-                          <option selected disabled value="">administrations</option>
-                          <option value="0">-- Sélectionnez un mode d'administration--</option>
-                          <% for (Administration m : listAdministration) { %>
-                              <option value="<%= m.getId() %>"><%= m.getNom() %></option>
-                          <% } %>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Filtrer</button>
-                    </div>
-
-                </form><!-- End General Form Elements -->
                 
                 <!-- Default Table -->
                 <button class="btn btn-primary"><a href="GetVente?type=insertion">Inserer</a></button>
 
-                <table class="table">
+                <table class="table data-table">
                   <thead>
                     <tr>
                       <th scope="col">Produit</th>
-                      <th scope="col">Prix unitaire</th>
-                      <th scope="col">Date vente</th>
-                      <th scope="col">Quantite</th>
-                      <th scope="col">Prix total</th>
+                      <th scope="col">Date de peremption</th>
+                      <th scope="col">Entree</th>
+                      <th scope="col">Sortie</th>
+                      <th scope="col">Reste</th>
                     </tr>
                   </thead>
                   <tbody>
 <% 
-            for(VenteDetail ve : vd){%>
+            for(EtatStock ve : stock){%>
                     <tr>
-                      <td><%=ve.getNomProduit()%></td>
-                      <td><%=ve.getPu()%></td>
-                      <td><%=ve.getDateVente()%></td>
-                      <td><%=ve.getQte()%></td>
-                      <td><%=ve.getPrixTotal()%></td>
+                      <td><%=ve.getNom()%></td>
+                      <td><%=ve.getDatePeremption()%></td>
+                      <td><%=ve.getQteEntree()%></td>
+                      <td><%=ve.getQteSortie()%></td>
+                      <td><%=ve.getQteDispo()%></td>
                     </tr>
         <%  }%>
                     
@@ -104,7 +73,6 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
                 </table>
                 <!-- End Default Table Example -->
               </div>
-            </div>
         </div>
     </section>
 </main><!-- End #main -->

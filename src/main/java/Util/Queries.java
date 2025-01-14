@@ -31,7 +31,7 @@ public class Queries {
             
         } catch (Exception e) {
             e.printStackTrace();
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }
@@ -74,7 +74,7 @@ public class Queries {
             preparedStatement.close();
             c.getConnex().commit();
         } catch (Exception e) {
-            c.closeBD();
+            // c.closeBD();
             throw e;
         }
     }
