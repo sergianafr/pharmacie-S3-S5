@@ -45,9 +45,9 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
                                             <option selected>Open this select menu</option>
                                             <% 
                                             if (listProduits != null && !listProduits.isEmpty()) {
-                                                for (Pays produit : listProduits) {
+                                                for (Produit produit : listProduits) {
                                             %>
-                                                <option value="<%= produits.getId() %>"><%= produits.getNom() %></option>
+                                                <option value="<%= produit.getId() %>"><%= produit.getNom() %></option>
                                             <% 
                                                 }
                                             } else { 

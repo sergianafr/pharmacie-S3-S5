@@ -47,7 +47,7 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
               <div class="card-body">
                 <h5 class="card-title">Liste Produit du mois</h5>                
                 <!-- Default Table -->
-                <button class="btn btn-primary"><a href="GetProduitMois?type=insertion">Inserer</a></button>
+                <button class="btn btn-primary"><a href="GetInsertionProduitsMois">Inserer</a></button>
 
                     <section class="section">
                         <div class="row">
