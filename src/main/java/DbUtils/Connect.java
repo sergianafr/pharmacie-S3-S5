@@ -73,7 +73,7 @@ public class Connect {
             this.setUsername(username);
             this.setPassword(password);
             Class.forName("org.postgresql.Driver");
-            this.connex = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+DATABASE+"?characterEncoding=UTF-8", "postgres", PASSWORD);
+            this.connex = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+DATABASE+"?charSet=UTF-8", "postgres", PASSWORD);
             this.connex.setAutoCommit(false);
             this.setType("postgre");
 

@@ -120,3 +120,39 @@ CREATE TRIGGER trg_vente_detail_insert
 AFTER INSERT ON vente_detail
 FOR EACH ROW
 EXECUTE FUNCTION trigger_vente_detail_insert();
+
+
+CREATE OR REPLACE FUNCTION set_date_fin()
+RETURNS TRIGGER AS $$
+BEGIN
+   -- Calculer la date_fin en ajoutant 1 mois à date_debut
+   NEW.date_fin := NEW.date_debut + INTERVAL '1 month';
+   RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trigger_set_date_fin
+BEFORE INSERT ON conseil_mois
+FOR EACH ROW
+EXECUTE FUNCTION set_date_fin();
+
+
+CREATE OR REPLACE FUNCTION check_unique_id_produit_per_month()
+RETURNS TRIGGER AS $$
+BEGIN
+   -- Vérifier si un `id_produit` existe déjà dans le même mois
+   IF EXISTS (
+      SELECT 1
+      FROM conseil_mois
+      WHERE id_produit = NEW.id_produit
+        AND date_trunc('month', date_debut) = date_trunc('month', NEW.date_debut)
+   ) THEN
+      RAISE EXCEPTION 'L''id_produit % existe déjà pour ce mois.', NEW.id_produit;
+   END IF;
+
+   RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trigger_check_id_produit_per_month
+BEFORE INSERT ON conseil_mois
+FOR EACH ROW
+EXECUTE FUNCTION check_unique_id_produit_per_month();
