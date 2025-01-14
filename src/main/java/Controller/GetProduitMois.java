@@ -6,6 +6,7 @@
 package Controller;
 
 import DbUtils.Connect;
+import Model.ConseilMois;
 import Model.Laboratoire;
 import Model.Pays;
 import Model.Produit;
@@ -39,7 +40,7 @@ public class GetProduitMois extends HttpServlet {
         Connect con = new Connect();
         try {
             con.connectToPostgres();
-            List<Produit> listProduit = Produit.getAll(con);
+            List<ConseilMois> listProduit = ConseilMois.filtre(con, null, null);
 
             request.setAttribute("produits", listProduit);
 

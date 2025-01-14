@@ -49,7 +49,7 @@ public class ConseilMois {
     public void setNomCategorie(String nomCategorie) {
         this.nomCategorie = nomCategorie;
     }
-    
+    public boolean surOrdonnance(){return surOrdonnance;}
     public ConseilMois(int id, int idProduit, Date dateDebut, Date dateFin, String nom, boolean surOrdonnance,
             int idCategorie, double montant, String nomCategorie) {
         this.id = id;
