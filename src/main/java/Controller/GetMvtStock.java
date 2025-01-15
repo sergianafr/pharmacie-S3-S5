@@ -71,21 +71,44 @@ public class GetMvtStock extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         Connect con = new Connect();
         try {
             con.connectToPostgres();
 
-            String nomLaboratoire = request.getParameter("nomLaboratoire");
-            int idPaysOrigine = Integer.parseInt(request.getParameter("idPaysOrigine"));
+            // Récupération des données du formulaire
+            String dateFabricationStr = request.getParameter("dateFabrication");
+            String datePeremptionStr = request.getParameter("datePeremption");
+            String quantiteStr = request.getParameter("quantite");
+            String produitIdStr = request.getParameter("produits");
 
-            Laboratoire laboratoire = new Laboratoire();
-            laboratoire.setNom(nomLaboratoire);
-            laboratoire.setId_pays_origine(idPaysOrigine);
+            // Validation des données
+            if (produitIdStr == null || quantiteStr == null) {
+                throw new IllegalArgumentException("Le produit et la quantité sont obligatoires.");
+            }
 
-            laboratoire.insert(con);
+            int idProduit = Integer.parseInt(produitIdStr);
+            double quantite = Double.parseDouble(quantiteStr);
+            java.sql.Date dateFabrication = (dateFabricationStr != null && !dateFabricationStr.isEmpty())
+                    ? java.sql.Date.valueOf(dateFabricationStr)
+                    : null;
+            java.sql.Date datePeremption = (datePeremptionStr != null && !datePeremptionStr.isEmpty())
+                    ? java.sql.Date.valueOf(datePeremptionStr)
+                    : null;
 
-            response.sendRedirect("GetLaboratoire");
+            // Création et insertion de l'objet MvtStock
+            MvtStock mvtStock = new MvtStock();
+            mvtStock.setDateFabrication(dateFabrication);
+            mvtStock.setDatePeremption(datePeremption);
+            mvtStock.setQteEntree(quantite);
+            mvtStock.setIdProduit(idProduit);
+            mvtStock.insert(con.getConnex());
+
+            con.getConnex().commit();
+
+
+            // Redirection après succès
+            response.sendRedirect("ListeStock");
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -99,6 +122,7 @@ public class GetMvtStock extends HttpServlet {
             }
         }
     }
+
 
     /**
      * Returns a short description of the servlet.

@@ -46,6 +46,7 @@
                 
                 <!-- Default Table -->
                 <button class="btn btn-primary"><a href="GetVente?type=insertion">Inserer</a></button>
+                <button class="btn btn-primary"><a href="GetMvtStock">Inserer Stock</a></button>
 
                 <table class="table data-table">
                   <thead>

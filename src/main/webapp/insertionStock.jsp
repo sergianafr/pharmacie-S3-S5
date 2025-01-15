@@ -3,7 +3,7 @@
 <%@ page import="Model.Produit" %>
 
 <% 
-List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
+List<Produit> listProduits = (List<Produit>) request.getAttribute("Produit");
 %>
 
 <!DOCTYPE html>
@@ -37,14 +37,7 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
                             <h5 class="card-title">Insertion Stock</h5>
 
                             <!-- General Form Elements -->
-                            <form action="GetLaboratoire" method="POST">
-                                <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-2 col-form-label">Quantite</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" class="form-control" id="quantite" name="quantite">
-                                    </div>
-                                </div>
-
+                            <form action="GetMvtStock" method="POST">
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Produits</label>
                                     <div class="col-sm-10">
@@ -52,9 +45,9 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
                                             <option selected>Open this select menu</option>
                                             <% 
                                             if (listProduits != null && !listProduits.isEmpty()) {
-                                                for (Pays produit : listProduits) {
+                                                for (Produit produit : listProduits) {
                                             %>
-                                                <option value="<%= produits.getId() %>"><%= produits.getNom() %></option>
+                                                <option value="<%= produit.getId() %>"><%= produit.getNom() %></option>
                                             <% 
                                                 }
                                             } else { 
@@ -64,6 +57,24 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("produits");
                                             }
                                             %>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputDate" class="col-sm-2 col-form-label">Date de fabrication</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="dateFabrication">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputDate" class="col-sm-2 col-form-label">Date de peremption</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="datePeremption">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Quantité</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="quantite">
                                     </div>
                                 </div>
 

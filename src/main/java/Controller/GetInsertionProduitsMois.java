@@ -46,9 +46,7 @@ public class GetInsertionProduitsMois extends HttpServlet{
         try {
             con.connectToPostgres();
 
-            // int idProduit = Integer.valueOf(request.getParameter("produit"));
             int idProduit = Integer.valueOf(request.getParameter("produit"));
-
 
             ConseilMois conseil = new ConseilMois();
             conseil.setIdProduit(idProduit);
