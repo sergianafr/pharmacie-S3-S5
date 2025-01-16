@@ -209,9 +209,14 @@ CREATE TABLE dosage_produit(
    id_produit integer references produit(id)
 );
 
+CREATE TABLE client(
+   id serial primary key,
+   nom varchar(100) unique
+);
 CREATE TABLE vente (
    id serial primary key,
-   date_vente date
+   date_vente date,
+   id_client int references client(id)
 );
 
 CREATE TABLE vente_detail(

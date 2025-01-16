@@ -34,6 +34,7 @@
 <% List<VenteDetail> vd = (List<VenteDetail>)request.getAttribute("ventes");
 List<Age> listAge =(List<Age>) request.getAttribute("ages");
 List<Administration> listAdministration =(List<Administration>) request.getAttribute("administrations");
+List<Client> clients = (List<Client>) request.getAttribute("clients");
 
 %>
 <%@ include file="sidebar.jsp" %>
@@ -41,7 +42,7 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
 <main id="main" class="main">
     <section class="section">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col">
   
             <div class="card">
               <div class="card-body">
@@ -74,6 +75,27 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
                     </div>
 
                 </form><!-- End General Form Elements -->
+
+                <form class="row g-3" action="ListeVente" method="get">
+                    <div class="col-md-3">
+                        <label for="validationDefault01" class="form-label">Filtre par client et date</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="validationDefault04" name="client">
+                          <option selected disabled value="">Client</option>
+                          <% for (Client m : clients) { %>
+                              <option value="<%= m.getId() %>"><%= m.getNom() %></option>
+                          <% } %>
+                        </select>
+                      </div>
+                    <div class="col-md-4">
+                        <input type="date" name="date">
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Filtrer</button>
+                    </div>
+
+                </form>
                 
                 <!-- Default Table -->
                 <button class="btn btn-primary"><a href="GetVente?type=insertion">Inserer</a></button>
@@ -82,6 +104,7 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
                   <thead>
                     <tr>
                       <th scope="col">Produit</th>
+                      <th scope="col">Client</th>
                       <th scope="col">Prix unitaire</th>
                       <th scope="col">Date vente</th>
                       <th scope="col">Quantite</th>
@@ -93,6 +116,7 @@ List<Administration> listAdministration =(List<Administration>) request.getAttri
             for(VenteDetail ve : vd){%>
                     <tr>
                       <td><%=ve.getNomProduit()%></td>
+                      <td><%=ve.getClient()%></td>
                       <td><%=ve.getPu()%></td>
                       <td><%=ve.getDateVente()%></td>
                       <td><%=ve.getQte()%></td>

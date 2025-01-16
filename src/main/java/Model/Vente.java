@@ -11,6 +11,13 @@ import DbUtils.Connect;
 public class Vente {
     private int id;
     private Date dateVente;
+    private int idClient;
+
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
+    }public int getIdClient() {
+        return idClient;
+    }
     private List<VenteDetail> venteDetails = new ArrayList<VenteDetail>(); 
     // Constructeur
     public Vente(int id, Date dateVente) {
@@ -45,9 +52,9 @@ public class Vente {
 
     public void create(Connect c) throws Exception {
         try {
-            String Query = "INSERT INTO vente (date_vente) VALUES (CURRENT_DATE)";
+            String Query = "INSERT INTO vente (date_vente, id_client) VALUES (CURRENT_DATE, ?)";
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(Query, PreparedStatement.RETURN_GENERATED_KEYS);
-            
+            preparedStatement.setInt(1,this.getIdClient());
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {

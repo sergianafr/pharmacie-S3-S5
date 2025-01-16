@@ -54,7 +54,12 @@ public class GetProduitMois extends HttpServlet {
                 }
             }
             List<ConseilMois> listProduit = ConseilMois.filtre(con, dateMin, dateMax);
+            if(request.getParameter("annee")!=null){
+                if(!request.getParameter("annee").isEmpty()){
+                    listProduit = ConseilMois.getByAnnee(con, Integer.parseInt(request.getParameter("annee")));
+                }
 
+            }
             request.setAttribute("produits", listProduit);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("listeProduitsMois.jsp");

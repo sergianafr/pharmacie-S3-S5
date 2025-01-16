@@ -190,4 +190,38 @@ public class ConseilMois {
             throw e;
         }
     }
+
+    public static List<ConseilMois> getByAnnee(Connect c, int year)throws Exception{
+        try {
+            String sql = """
+            SELECT * FROM v_details_conseil WHERE EXTRACT(YEAR FROM date_debut)=?
+            """;
+            
+            PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
+            preparedStatement.setInt(1, year);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            List<ConseilMois> results = new ArrayList<ConseilMois>();
+            while(rs.next()){
+                // System.out.println(rs);
+                int id = rs.getInt(1);
+                String nom = rs.getString(2);
+                Boolean surOrdonnance = rs.getBoolean(3);
+                int idCategorie = rs.getInt(4);
+                String nomCategorie =  rs.getString(5);
+                double montant = rs.getDouble(6);
+                Date dateDebut = rs.getDate(7);
+                Date dateFin = rs.getDate(8);
+                ConseilMois p = new ConseilMois(0, id, dateDebut, dateFin, nom, surOrdonnance, idCategorie, montant, nomCategorie);
+                results.add(p);   
+            }
+            preparedStatement.close();
+            rs.close();
+            return results;
+            
+        } catch (Exception e) {
+            // // c.closeBD();
+            throw e;
+        }
+    }
 }

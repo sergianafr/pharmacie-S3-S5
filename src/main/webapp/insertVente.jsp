@@ -35,6 +35,8 @@
 <body>
     <%@ include file="sidebar.jsp" %>
     <% List<Produit> produits = (List<Produit>) request.getAttribute("produits"); %>
+    <% List<Client> clients = (List<Client>) request.getAttribute("clients"); %>
+
 
     <main id="main" class="main">
         <section class="section">
@@ -55,6 +57,17 @@
                     <!-- General Form Elements -->
                     <form id="venteForm" action="GetVente" method="post">
                         <div id="produit-form" class="produit-section">
+                            <div class="row mb-3 produit-item">
+                                <label class="col-sm-2 col-form-label">Client</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select" name="client" aria-label="Default select example">
+                                        <option selected>Client</option>
+                                        <% for (Client c : clients) { %>
+                                        <option value="<%= c.getId() %>"><%= c.getNom() %></option>
+                          <% } %>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="row mb-3 produit-item">
                                 <label class="col-sm-2 col-form-label">Produit</label>
                                 <div class="col-sm-10">

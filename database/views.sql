@@ -7,7 +7,7 @@ group by id_produit, nom, date_peremption
 HAVING date_peremption >= CURRENT_DATE;
 
 CREATE OR REPLACE VIEW v_details_produit AS
- SELECT p.*, Categorie.nom as nom_categorie, pp.montant
+ SELECT p.*, Categorie.nom as nom_categorie, Client.nom as client, pp.montant
             FROM Produit p
             JOIN prix_produit pp ON p.id = pp.id_produit
             JOIN categorie on p.id_categorie = categorie.id

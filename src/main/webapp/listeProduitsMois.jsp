@@ -57,6 +57,18 @@ List<ConseilMois> listProduits = (List<ConseilMois>) request.getAttribute("produ
                     <button type="submit" class="btn btn-primary">Rechercher</button>
                 </div>
             </form>
+            <form class="row g-3" action="GetProduitMois" method="get">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="dateMin" class="form-label">Filtre par annee</label>
+                        <input type="number" class="form-control" id="annee" name="annee" placeholder="Annee">
+                    </div>
+                    <div class="col-md-12 text-end" >
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+
+                    </div>
+                </div>
+            </form>
         </div>
 
         <!-- Titre et bouton d'insertion -->

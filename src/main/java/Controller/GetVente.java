@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DbUtils.Connect;
+import Model.Client;
 import Model.Produit;
 import Model.Vente;
 import Model.VenteDetail;
@@ -25,6 +26,9 @@ public class GetVente extends HttpServlet{
             // if(req.getParameter("type").equals("insertion")) {
                 List<Produit> produits = Produit.getAll(connect);
                 req.setAttribute("produits", produits);
+                List<Client> clients = Client.getAll(connect);
+                req.setAttribute("clients", clients);
+
             // }
             if(req.getAttribute("error")!=null){
                 req.setAttribute("error", req.getAttribute("error"));
@@ -49,6 +53,8 @@ public class GetVente extends HttpServlet{
             String[] quantites = request.getParameterValues("quantite[]");
             System.out.println(quantites.length);
 
+            String idClient = request.getParameter("client");
+
             List<VenteDetail> listeVente = new ArrayList<VenteDetail>();
             for(int i=0; i<produits.length; i++) {
                 VenteDetail vente = new VenteDetail();
@@ -57,6 +63,7 @@ public class GetVente extends HttpServlet{
                 listeVente.add(vente);
             }
             Vente v = new Vente();
+            v.setIdClient(Integer.parseInt(idClient));
             v.setVenteDetails(listeVente);
             v.insertWDetails(con);
 

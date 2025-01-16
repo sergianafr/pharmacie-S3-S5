@@ -86,3 +86,8 @@ INSERT INTO vente_detail (qte, id_vente, id_produit) VALUES
 (5, 1, 1), -- Vente de Paracetamol
 (3, 1, 2), -- Vente d'Ibuprofene
 (10, 1, 3); -- Vente de Gel Hydroalcoolique
+
+INSERT INTO conseil_mois values(default, 2, '2024-07-12', null);
+INSERT INTO conseil_mois values(default, 2, '2023-07-12', null);
+
+INSERT INTO CLient values (default, 'RAKOTO'), (default, 'RANDRIA');

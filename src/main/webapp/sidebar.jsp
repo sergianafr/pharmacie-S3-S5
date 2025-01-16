@@ -80,11 +80,11 @@
               <i class="bi bi-circle"></i><span>Hygienes</span>
             </a>
           </li>
-          <li>
+          <%-- <li>
             <a href="GetMvtStock">
               <i class="bi bi-circle"></i><span>Stock</span>
             </a>
-          </li>
+          </li> --%>
           <li>
             <a href="GetProduitMois">
               <i class="bi bi-circle"></i><span>Produit du mois</span>

@@ -7,6 +7,7 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import DbUtils.Connect;
 import Model.Administration;
 import Model.Age;
+import Model.Client;
 import Model.Vente;
 import Model.VenteDetail;
 import jakarta.servlet.RequestDispatcher;
@@ -73,31 +75,46 @@ public class ListeVente extends HttpServlet {
         try {
             int forme = 0;
             int age = 0;
+            int idClient = 0;
+            Date date = null;
             System.out.println("mididtraa");
             con.connectToPostgres();
             List<VenteDetail> listeVente = new ArrayList<VenteDetail>();
             List<Age> listeAges = Age.getAll(con);
             List<Administration> admin = Administration.getAll(con);
-            if(request.getParameter("forme")==null && request.getParameter("age")==null) {
+            List<Client> clients =Client.getAll(con);
+            // if(request.getParameter("forme")==null && request.getParameter("age")==null) {
+            //     listeVente = VenteDetail.getAll(con);
+            // }else {
+            //     if(request.getParameter("forme") != null){
+            //         forme = Integer.parseInt(request.getParameter("forme"));
+            //         // if(forme != 0){
+            //         //     request.setAttribute("maladien", liste.get(idMaladie-1).getNom());
+            //         // }
+            //     }if(request.getParameter("age") != null){
+            //         age = Integer.parseInt(request.getParameter("age"));
+            //         // if(forme != 0){
+            //         //     request.setAttribute("agen", listeAges.get(forme-1).getNom());
+            //         // }
+            //     }
+            //     listeVente = VenteDetail.filtrer(con, forme, age);
+            // }
+            // request.setAttribute("ventes", listeVente);
+            request.setAttribute("ages", listeAges);
+            request.setAttribute("administrations", admin);
+            if(request.getParameter("client")==null && request.getParameter("date")==null) {
                 listeVente = VenteDetail.getAll(con);
             }else {
-                if(request.getParameter("forme") != null){
-                    forme = Integer.parseInt(request.getParameter("forme"));
-                    // if(forme != 0){
-                    //     request.setAttribute("maladien", liste.get(idMaladie-1).getNom());
-                    // }
-                }if(request.getParameter("age") != null){
-                    age = Integer.parseInt(request.getParameter("age"));
-                    // if(forme != 0){
-                    //     request.setAttribute("agen", listeAges.get(forme-1).getNom());
-                    // }
+                if(request.getParameter("client") != null){
+                    idClient = Integer.parseInt(request.getParameter("client"));
+                }if(request.getParameter("date") != null){
+                    date = Date.valueOf(request.getParameter("date"));
                 }
-                listeVente = VenteDetail.filtrer(con, forme, age);
+                listeVente = VenteDetail.filtreClientDate(con, idClient, date);
             }
             request.setAttribute("ventes", listeVente);
-            request.setAttribute("ages", listeAges);
-
-            request.setAttribute("administrations", admin);
+            request.setAttribute("clients", clients);
+            // request.setAttribute("administrations", admin);
             
             //out.printlin()
             RequestDispatcher dispatcher = request.getRequestDispatcher("vente.jsp");
