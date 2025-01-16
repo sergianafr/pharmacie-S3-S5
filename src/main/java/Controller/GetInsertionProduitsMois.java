@@ -28,9 +28,9 @@ public class GetInsertionProduitsMois extends HttpServlet{
                 List<Produit> produits = Produit.getAll(connect);
                 req.setAttribute("produits", produits);
             // }
-            if(req.getAttribute("error")!=null){
-                req.setAttribute("error", req.getAttribute("error"));
-            }
+            // if(req.getAttribute("error")!=null){
+            //     req.setAttribute("error", req.getAttribute("error"));
+            // }
             RequestDispatcher dispatcher = req.getRequestDispatcher("insertionProduitMois.jsp");
             dispatcher.forward(req, resp);
         } catch (Exception e) {
@@ -52,10 +52,12 @@ public class GetInsertionProduitsMois extends HttpServlet{
             conseil.setIdProduit(idProduit);
 
             conseil.create(con);
-
+            con.getConnex().commit();
             response.sendRedirect("GetProduitMois");
         } catch (Exception e) {
             e.printStackTrace();
+            request.setAttribute("error", e.getMessage());
+            doGet(request, response);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } finally {
             if (con != null) {

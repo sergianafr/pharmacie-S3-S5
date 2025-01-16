@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -40,7 +41,19 @@ public class GetProduitMois extends HttpServlet {
         Connect con = new Connect();
         try {
             con.connectToPostgres();
-            List<ConseilMois> listProduit = ConseilMois.filtre(con, null, null);
+            Date dateMin = null;
+            Date dateMax = null;
+            if(request.getParameter("dateMin")!=null ){
+                if(! request.getParameter("dateMin").isEmpty()){
+                    dateMin = Date.valueOf(request.getParameter("dateMin"));
+                }
+            }
+            if(request.getParameter("dateMax")!=null){
+                if(!request.getParameter("dateMax").isEmpty()){
+                    dateMax = Date.valueOf(request.getParameter("dateMax"));
+                }
+            }
+            List<ConseilMois> listProduit = ConseilMois.filtre(con, dateMin, dateMax);
 
             request.setAttribute("produits", listProduit);
 

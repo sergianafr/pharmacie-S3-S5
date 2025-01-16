@@ -90,6 +90,7 @@ public class ConseilMois {
     public void create(Connect c)throws Exception{
         try {      
             String Query = "INSERT INTO conseil_mois(id_produit) VALUES (?)";
+            System.out.println(this.getIdProduit()+" myyyyy ");
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(Query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, this.getIdProduit());
 
@@ -153,10 +154,14 @@ public class ConseilMois {
             } if(dateMax != null){
                 sql += " AND date_fin <= ?";
                 count++;
+            } if(dateMin == null && dateMax == null){
+                sql+=" AND date_fin >= CURRENT_DATE AND date_debut<= CURRENT_DATE";
             }
+            System.out.println(sql);
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
             if(dateMin != null){
-                preparedStatement.setDate(count, dateMin);
+
+                preparedStatement.setDate(1, dateMin);
             } if(dateMax != null){
                 preparedStatement.setDate(count, dateMax);
             }

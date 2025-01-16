@@ -86,7 +86,7 @@ INSERT INTO Type_Medicament (nom) VALUES
 
 INSERT INTO Produit (nom, sur_ordonnance, id_categorie) VALUES
 ('Paracétamol', TRUE, 1),  -- Catégorie MEDICAMENT
-('Gel désinfectant', FALSE, 2),  -- Catégorie HYGIENE
+('Gel Desinfectant', FALSE, 2),  -- Catégorie HYGIENE
 ('Sirop pour la toux', TRUE, 1),
 ('Savon antiseptique', FALSE, 2);
 
@@ -99,31 +99,31 @@ INSERT INTO prix_produit (date_insertion, montant, id_produit) VALUES
 INSERT INTO age_produit (id_produit, id_age) VALUES
 (1, 4),  -- Paracétamol pour adulte
 (1, 5),  -- Paracétamol pour personne âgée
-(2, 2),  -- Gel désinfectant pour enfant
+(2, 2),  -- Gel Desinfectant pour enfant
 (3, 3),  -- Sirop pour adolescent
 (4, 2);  -- Savon antiseptique pour enfant
 
 INSERT INTO Hygiene (nom, id_produit, id_laboratoire) VALUES
 ('Gel Hydroalcoolique', 2, 1),  -- Produit lié à BioMad
-('Savon Désinfectant', 4, 2);  -- Produit lié à Sanofi
+('Savon Desinfectant', 4, 2);  -- Produit lié à Sanofi
 
 INSERT INTO Medicament (nom, dateInsertion, id_laboratoire, id_type_medicament) VALUES
-('Ibuprofène', '2025-01-01', 2, 4),  -- Anti-inflammatoire, Sanofi
+('Ibuprofene', '2025-01-01', 2, 4),  -- Anti-inflammatoire, Sanofi
 ('Amoxicilline', '2025-01-01', 3, 1),  -- Antibiotique, Serum Institute
 ('Vitamine C', '2025-01-01', 1, 9);  -- Vitamine, BioMad
 
 INSERT INTO age_medicament (id_medicament, id_age) VALUES
-(1, 4),  -- Ibuprofène pour adulte
+(1, 4),  -- Ibuprofene pour adulte
 (2, 3),  -- Amoxicilline pour adolescent
 (3, 5);  -- Vitamine C pour personne âgée
 
 INSERT INTO forme_admin_medoc (id_medicament, id_forme_administration) VALUES
-(1, 1),  -- Ibuprofène : Comprimé, Administration Orale
+(1, 1),  -- Ibuprofene : Comprimé, Administration Orale
 (2, 2),  -- Amoxicilline : Gélule, Administration Orale
 (3, 3);  -- Vitamine C : Sirop, Administration Orale
 
 INSERT INTO quantite_medoc (qte, id_unite, id_forme_admin_medoc, id_produit) VALUES
-(500, 1, 1, 1),  -- Ibuprofène, 500 mg
+(500, 1, 1, 1),  -- Ibuprofene, 500 mg
 (250, 1, 2, 3),  -- Amoxicilline, 250 mg
 (100, 2, 3, 3);  -- Vitamine C, 100 ml
 
@@ -140,7 +140,7 @@ INSERT INTO Maladie (nom, est_contagieuse, est_grave, est_rare) VALUES
 ('Anémie', FALSE, FALSE, FALSE);
 
 INSERT INTO Maladie_medicament (id_maladie, id_medicament) VALUES
-(1, 1),  -- Ibuprofène pour Grippe
+(1, 1),  -- Ibuprofene pour Grippe
 (2, 2),  -- Amoxicilline pour Maux de gorge
 (9, 3);  -- Vitamine C pour Migraine
 
