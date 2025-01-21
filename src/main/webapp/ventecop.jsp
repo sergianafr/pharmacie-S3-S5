@@ -81,6 +81,17 @@ List<Client> clients = (List<Client>) request.getAttribute("clients");
                           <% } %>
                         </select>
                       </div>
+                    <div class="row mb-3 produit-item">
+                        <label class="col-sm-2 col-form-label">Employe</label>
+                          <div class="col-sm-10">
+                              <select class="form-select" name="employe" aria-label="Default select example">
+                                  <option selected>Employe</option>
+                                    <% for (Employe e : employes) { %>
+                                  <option value="<%= e.getId() %>"><%= e.getNom() %></option>
+                      <% } %>
+                              </select>
+                          </div>
+                    </div>                    
                     <div class="col-md-4">
                         <input type="date" name="date">
                     </div>

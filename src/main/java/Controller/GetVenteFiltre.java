@@ -9,6 +9,7 @@ import DbUtils.Connect;
 import Model.Administration;
 import Model.Age;
 import Model.Client;
+import Model.Employe;
 import Model.VenteDetail;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -34,6 +35,8 @@ public class GetVenteFiltre extends HttpServlet  {
             List<Age> listeAges = Age.getAll(con);
             List<Administration> admin = Administration.getAll(con);
             List<Client> clients =Client.getAll(con);
+            List<Employe> employes = Employe.getAll(con);
+            request.setAttribute("employes", employes);
 
             if(request.getParameter("forme") != null){
                 if(!request.getParameter("forme").isEmpty())forme = Integer.parseInt(request.getParameter("forme"));
