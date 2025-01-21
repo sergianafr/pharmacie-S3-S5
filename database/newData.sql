@@ -6,6 +6,12 @@ INSERT INTO ADMINISTRATION(nom) VALUES
 ('ORALE'), ('LOCALE'), ('NASALE'), ('OCULAIRE'), ('AURICULAIRE'),
 ('RECTALE'), ('VAGINALE'), ('INJECTABLE'), ('INHALEE');
 
+INSERT INTO Age (nom) VALUES
+('Nouveau-ne & bebe'),
+('Enfant'),
+('Adolescent'),
+('Adulte'),
+('Personne agee');
 -- Unités
 INSERT INTO UNITE(nom) VALUES ('MG'), ('ML'), ('UNITE');
 
@@ -91,3 +97,25 @@ INSERT INTO conseil_mois values(default, 2, '2024-07-12', null);
 INSERT INTO conseil_mois values(default, 2, '2023-07-12', null);
 
 INSERT INTO CLient values (default, 'RAKOTO'), (default, 'RANDRIA');
+
+-- Insérer des ventes dans la table `vente`
+INSERT INTO vente (date_vente, id_client)
+VALUES
+    ('2024-11-10', 1), -- Vente du 10 janvier 2025, client ID 1
+    ('2025-01-12', 2), -- Vente du 12 janvier 2025, client ID 2
+    ('2025-01-15', 1); -- Vente du 15 janvier 2025, client ID 3
+
+-- Insérer des détails de vente dans la table `vente_detail`
+INSERT INTO vente_detail (qte, id_vente, id_produit)
+VALUES
+    -- Vente 1
+    (2, 7, 1), -- Produit ID 1
+    (1, 7, 2), -- Produit ID 2
+
+    -- Vente 2
+    (3,8, 3), -- Produit ID 3
+    (1, 8, 1), -- Produit ID 1
+
+    -- Vente 3
+    (5,  9, 2), -- Produit ID 2
+    (2, 9, 3); -- Produit ID 3

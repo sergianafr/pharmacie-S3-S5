@@ -42,7 +42,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="ListeVente">
+        <a class="nav-link " href="GetVenteFiltre">
           <i class="bi bi-grid"></i>
           <span>Vente</span>
         </a>

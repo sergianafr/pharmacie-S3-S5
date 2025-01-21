@@ -100,6 +100,8 @@ CREATE TABLE Laboratoire(
    PRIMARY KEY(id),
    FOREIGN KEY(id_pays_origine) REFERENCES Pays(id)
 );
+
++
 CREATE TABLE Forme_administration(
    id SERIAL,
    id_administration INTEGER NOT NULL,
