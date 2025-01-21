@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="Util.*"%>
+<%@page import="Model.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,8 +30,9 @@
   </head>
 </head>
 <body>
+<% List<Vente> listeVente = (List<Vente>) request.getAttribute("listCommission"); %>
 
-<!-- <%@ include file="sidebar.jsp" %> -->
+ <%@ include file="sidebar.jsp" %>
 
 <main id="main" class="main">
     <section class="section">
@@ -73,10 +77,13 @@
                 </tr>
               </thead>
               <tbody>
+        <% for(Vente v:listeVente){%>
                 <tr>
-                  <td>bhqjfhf</td>
-                  <td>nvjskggk</td>
+                  <td><%=v.getNomEmploye()%></td>
+                  <td><%=v.getCommission_employe()%></td>
                 </tr>
+
+        <% }%>
                 
               </tbody>
             </table>

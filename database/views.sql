@@ -33,4 +33,9 @@ WHERE pp.date_insertion = (
     WHERE id_produit = p.id
 );
 
+
+CREATE OR REPLACE VIEW V_commission_employe AS 
+SELECT Vente.*, EMploye.nom 
+FROM Vente 
+JOIN EMploye on employe.id = vente.id_employe;
 -- AND cm.date_fin >= CURRENT_DATE AND cm.date_debut<= CURRENT_DATE

@@ -232,10 +232,12 @@ CREATE TABLE client(
 CREATE TABLE vente (
    id serial primary key,
    date_vente date,
-   comission_employe double precision default 0.0,
-   id_client int references client(id),
-   id_employe int references employe(id)
+   id_client int references client(id)
 );
+ALTER TABLE vente
+ADD COLUMN comission_employe double precision default 0.0,
+ADD COLUMN id_employe int references employe(id);
+
 
 CREATE TABLE vente_detail(
    id serial primary key,

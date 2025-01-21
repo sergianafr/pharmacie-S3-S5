@@ -36,25 +36,25 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.jsp">
+        <a class="nav-link collapsed"  href="index.jsp">
           <i class="bi bi-grid"></i>
           <span>Accueil</span>
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="GetVenteFiltre">
+        <a class="nav-link collapsed"  href="GetVenteFiltre">
           <i class="bi bi-grid"></i>
           <span>Vente</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="GetLaboratoire">
+        <a class="nav-link collapsed"  href="GetLaboratoire">
           <i class="bi bi-grid"></i>
           <span>Laboratoires</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="ListeStock">
+        <a class="nav-link collapsed"  href="ListeStock">
           <i class="bi bi-grid"></i>
           <span>Stock</span>
         </a>
@@ -91,6 +91,12 @@
             </a>
           </li>
         </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="listeCommission.jsp">
+          <i class="bi bi-dash-circle"></i>
+          <span>Commissions</span>
+        </a>
       </li>
       
       <%-- <li class="nav-item">
