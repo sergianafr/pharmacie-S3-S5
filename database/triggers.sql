@@ -21,6 +21,11 @@ BEGIN
     NEW.pu := latest_pu;
     NEW.prix_total := NEW.qte * NEW.pu;
 
+    -- Mettre à jour la commission de l'employé
+    UPDATE VENTE 
+    SET comission_employe = comission_employe + (NEW.prix_total * 0.05)
+    WHERE id = NEW.id_vente;
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

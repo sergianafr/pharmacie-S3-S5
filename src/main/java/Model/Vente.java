@@ -12,17 +12,26 @@ public class Vente {
     private int id;
     private Date dateVente;
     private int idClient;
+    private int idEmploye;
 
     public void setIdClient(int idClient) {
         this.idClient = idClient;
     }public int getIdClient() {
         return idClient;
     }
+
+    public void setIdEmploye(int idEmploye) {
+        this.idEmploye = idEmploye;
+    }
+    public int getIdEmploye() {
+        return idEmploye;
+    }
     private List<VenteDetail> venteDetails = new ArrayList<VenteDetail>(); 
     // Constructeur
-    public Vente(int id, Date dateVente) {
+    public Vente(int id, Date dateVente, int idEmploye) {
         this.id = id;
         this.dateVente = dateVente;
+        this.idEmploye = idEmploye;
     }
 
     public Vente() {}
@@ -52,9 +61,10 @@ public class Vente {
 
     public void create(Connect c) throws Exception {
         try {
-            String Query = "INSERT INTO vente (date_vente, id_client) VALUES (CURRENT_DATE, ?)";
+            String Query = "INSERT INTO vente (date_vente, id_client, id_employe) VALUES (CURRENT_DATE, ?, ?)";
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(Query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1,this.getIdClient());
+            preparedStatement.setInt(2, idEmploye);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {

@@ -210,7 +210,21 @@ CREATE TABLE dosage_produit(
    id_unite integer references unite(id),
    id_produit integer references produit(id)
 );
-
+CREATE TABLE Poste(
+   id serial primary key,
+   nom varchar(100) unique
+);
+CREATE TABLE Genre(
+   id serial primary key,
+   nom varchar(100) unique
+);
+CREATE TABLE Employe(
+   id serial primary key,
+   nom varchar(100),
+   date_naissance date,
+   id_genre int references Genre(id),
+   id_poste int references Poste(id)
+);
 CREATE TABLE client(
    id serial primary key,
    nom varchar(100) unique
@@ -218,7 +232,9 @@ CREATE TABLE client(
 CREATE TABLE vente (
    id serial primary key,
    date_vente date,
-   id_client int references client(id)
+   comission_employe double precision default 0.0,
+   id_client int references client(id),
+   id_employe int references employe(id)
 );
 
 CREATE TABLE vente_detail(
