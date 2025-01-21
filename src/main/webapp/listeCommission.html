@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>liste commission</title>
+  
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+  
+    <!-- =======================================================
+    * Template Name: NiceAdmin
+    * Updated: Jan 29 2024 with Bootstrap v5.3.2
+    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+  </head>
+</head>
+<body>
+
+<!-- <%@ include file="sidebar.jsp" %> -->
+
+<main id="main" class="main">
+    <section class="section">
+    <div class="container mt-5">
+        <!-- Formulaire de filtrage -->
+        <div class="row mb-4">
+            <form class="row g-3" action="GetProduitMois" method="get">
+                <div class="col-md-6">
+                    <label for="dateDebut" class="form-label">Debut</label>
+                    <input type="date" class="form-control" id="dateDebut" name="dateDebut" placeholder="YYYY-MM-DD">
+                </div>
+                <div class="col-md-6">
+                    <label for="dateFin" class="form-label">Fin</label>
+                    <input type="date" class="form-control" id="dateFin" name="dateFin" placeholder="YYYY-MM-DD">
+                </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Vendeurs</label>
+                            <div class="col-sm-6">
+                                <select class="form-select" aria-label="Default select example" id="produit" name="produits">
+                                    <option selected>Open this select menu</option>
+                                    <option value="">haha</option>
+                                </select>
+                            </div>
+                    </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary">Ok</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+          <div class="card-body">
+            <table class="table data-table">
+              <thead>
+                <tr>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Montants</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>bhqjfhf</td>
+                  <td>nvjskggk</td>
+                </tr>
+                
+              </tbody>
+            </table>
+            <!-- End Default Table Example -->
+          </div>
+    </div>
+</section>
+
+</main><!-- End #main -->
+
+<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+
+</body>
+</html>
