@@ -119,3 +119,13 @@ VALUES
     -- Vente 3
     (5,  9, 2), -- Produit ID 2
     (2, 9, 3); -- Produit ID 3
+
+INSERT INTO Poste (nom) VALUES
+('vendeur');
+INSERT INTO Genre (nom) VALUES
+('Homme'),
+('Femme');
+INSERT INTO Employe (nom, date_naissance, id_genre, id_poste) VALUES
+('Jean Dupont', '1985-05-12', (SELECT id FROM Genre WHERE nom = 'Homme'), (SELECT id FROM Poste WHERE nom = 'vendeur')),
+('Marie Durand', '1990-08-23', (SELECT id FROM Genre WHERE nom = 'Femme'), (SELECT id FROM Poste WHERE nom = 'vendeur')),
+('Luc Martin', '1982-11-30', (SELECT id FROM Genre WHERE nom = 'Homme'), (SELECT id FROM Poste WHERE nom = 'vendeur'));

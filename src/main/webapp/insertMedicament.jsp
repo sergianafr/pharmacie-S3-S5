@@ -184,33 +184,30 @@ List<Age> ages = (List<Age>)request.getAttribute("ages");
                     }
                 }
 
-            // Fonction pour ajouter dynamiquement un autre bloc forme/mode
             function addFormeAdmin() {
                 const section = document.getElementById('forme-admin-section');
-                const newIndex = section.children.length; // Obtenir le prochain index
+                const newIndex = section.children.length;
                 console.log(newIndex);
                 const newFormeAdmin = document.querySelector('.forme-admin').cloneNode(true);
                 newFormeAdmin.querySelector('select.forme').name = "forme[${newIndex}]";
                 newFormeAdmin.querySelector('select.mode').name = "mode[${newIndex}]";
                 // newFormeAdmin.querySelector('select.prixUnitaire').name = "mode[${newIndex}]";
 
-                // Réinitialiser les valeurs des champs
                 newFormeAdmin.querySelector('select.forme').value = '';
                 newFormeAdmin.querySelector('select.mode').innerHTML = '<option value=""> mode administration --</option>';
 
                 section.appendChild(newFormeAdmin);
             }
 
-            // Fonction pour ajouter dynamiquement un autre bloc de dosage
             function addDosage() {
                 const section = document.getElementById('dosage-section');
-                const newIndex = section.children.length; // Obtenir le prochain index
+                const newIndex = section.children.length; 
 
                 const newDosageEntry = document.querySelector('.dosage-entry').cloneNode(true);
                 newDosageEntry.querySelector('input[name="dosage"]').name = `dosage[${newIndex}]`;
                 newDosageEntry.querySelector('select[name="unite[]"]').name = `unite[${newIndex}]`;
 
-                // Réinitialiser les valeurs des champs
+                // new val chhamp
                 newDosageEntry.querySelector('input[name="dosage"]').value = '';
                 newDosageEntry.querySelector('select[name="unite[]"]').value = '';
 

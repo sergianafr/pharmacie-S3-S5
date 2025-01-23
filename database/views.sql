@@ -35,7 +35,10 @@ WHERE pp.date_insertion = (
 
 
 CREATE OR REPLACE VIEW V_commission_employe AS 
-SELECT Vente.*, EMploye.nom 
+SELECT Vente.*, EMploye.nom, sum(vente_detail.prix_total) as total_vente
 FROM Vente 
-JOIN EMploye on employe.id = vente.id_employe;
+JOIN vente_detail on vente_detail.id_vente = vente.id
+JOIN EMploye on employe.id = vente.id_employe
+GROUP BY vente.id, vente.date_vente, employe.nom;
+
 -- AND cm.date_fin >= CURRENT_DATE AND cm.date_debut<= CURRENT_DATE

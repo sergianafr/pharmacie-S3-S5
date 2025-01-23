@@ -6,6 +6,7 @@ import java.util.List;
 
 import DbUtils.Connect;
 import Model.Client;
+import Model.Employe;
 import Model.Produit;
 import Model.Vente;
 import Model.VenteDetail;
@@ -28,6 +29,8 @@ public class GetVente extends HttpServlet{
                 req.setAttribute("produits", produits);
                 List<Client> clients = Client.getAll(connect);
                 req.setAttribute("clients", clients);
+                List<Employe> employes = Employe.getAll(connect);
+                req.setAttribute("employes", employes);
 
             // }
             if(req.getAttribute("error")!=null){
@@ -64,8 +67,10 @@ public class GetVente extends HttpServlet{
             }
             Vente v = new Vente();
             v.setIdClient(Integer.parseInt(idClient));
+            v.setIdEmploye(Integer.parseInt(request.getParameter("employe")));
             v.setVenteDetails(listeVente);
             v.insertWDetails(con);
+
 
         } catch (Exception e) {
             

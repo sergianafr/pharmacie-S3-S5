@@ -25,74 +25,79 @@
     * Updated: Jan 29 2024 with Bootstrap v5.3.2
     * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
     * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
+    * License: https://bootstrapmade.com/licant lcean 
     ======================================================== -->
   </head>
 </head>
 <body>
-<% List<Vente> listeVente = (List<Vente>) request.getAttribute("listCommission"); %>
+<% List<Vente> listeVente = (List<Vente>) request.getAttribute("listCommission"); 
+  List<Employe> employes = (List<Employe>) request.getAttribute("employes");
+%>
 
  <%@ include file="sidebar.jsp" %>
 
 <main id="main" class="main">
     <section class="section">
-    <div class="container mt-5">
-        <!-- Formulaire de filtrage -->
-        <div class="row mb-4">
-            <form class="row g-3" action="GetProduitMois" method="get">
-                <div class="col-md-6">
-                    <label for="dateDebut" class="form-label">Debut</label>
-                    <input type="date" class="form-control" id="dateDebut" name="dateDebut" placeholder="YYYY-MM-DD">
-                </div>
-                <div class="col-md-6">
-                    <label for="dateFin" class="form-label">Fin</label>
-                    <input type="date" class="form-control" id="dateFin" name="dateFin" placeholder="YYYY-MM-DD">
-                </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Vendeurs</label>
-                            <div class="col-sm-6">
-                                <select class="form-select" aria-label="Default select example" id="produit" name="produits">
-                                    <option selected>Open this select menu</option>
-                                    <option value="">haha</option>
-                                </select>
-                            </div>
+        <div class="container mt-5">
+            <!-- Formulaire de filtrage -->
+            <div class="row mb-4">
+                <form class="row g-3" action="ListeCommission" method="get">
+                    <div class="col-md-6">
+                        <label for="dateDebut" class="form-label">Début</label>
+                        <input type="date" class="form-control" id="dateDebut" name="dateDebut" placeholder="YYYY-MM-DD">
                     </div>
-                <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-primary">Ok</button>
-                </div>
-            </form>
+                    <div class="col-md-6">
+                        <label for="dateFin" class="form-label">Fin</label>
+                        <input type="date" class="form-control" id="dateFin" name="dateFin" placeholder="YYYY-MM-DD">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="produit" class="form-label">Vendeurs</label>
+                        <select class="form-select" aria-label="Sélectionner un vendeur" id="produit" name="idEmploye">
+                            <option selected disabled>Ouvrir ce menu de sélection</option>
+                            <% for(Employe emp : employes){ %>
+                                <option value="<%= emp.getId() %>"><%= emp.getNom() %></option>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-primary">Ok</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</section>
-<section class="section">
-    <div class="row">
+    </section>
 
+    <section class="section">
         <div class="card">
-          <div class="card-body">
-            <table class="table data-table">
-              <thead>
-                <tr>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Montants</th>
-                </tr>
-              </thead>
-              <tbody>
-        <% for(Vente v:listeVente){%>
-                <tr>
-                  <td><%=v.getNomEmploye()%></td>
-                  <td><%=v.getCommission_employe()%></td>
-                </tr>
-
-        <% }%>
-                
-              </tbody>
-            </table>
-            <!-- End Default Table Example -->
-          </div>
-    </div>
-</section>
-
-</main><!-- End #main -->
+            <div class="card-body">
+                <!-- Tableau de données -->
+                <table class="table table-striped data-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Commission</th>
+                            <th scope="col">Montant total</th>
+                            <th scope="col">Date vente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(Vente v: listeVente){ %>
+                            <tr>
+                                <td><%= v.getNomEmploye() %></td>
+                                <td><%= v.getComission_employe() %></td>
+                                <td><%= v.getTotalVente() %></td>
+                                <td><%= v.getDateVente() %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- End #main -->
 
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

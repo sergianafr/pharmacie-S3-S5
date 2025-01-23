@@ -19,6 +19,14 @@ public class Vente {
     private int idEmploye;
     private double comission_employe;
     private String nomEmploye;
+    private double totalVente;
+
+    public double getTotalVente() {
+        return totalVente;
+    }
+    public void setTotalVente(double totalVente) {
+        this.totalVente = totalVente;
+    }
 
 
     public double getComission_employe() {
@@ -109,10 +117,11 @@ public class Vente {
     }
 
     public static List<Vente> getCommission(Connect conn, Integer idEmploye, Date dateDebut, Date dateFin) throws SQLException {
+        System.out.println(idEmploye+" emppppp-");
         // Construction de la requête SQL de base
         List<Vente> list = new ArrayList<Vente>();
         StringBuilder sql = new StringBuilder(
-            "SELECT id, date_vente, id_client, SUM(comission_employe) as comission_employe, id_employe, nom FROM V_Commission_employe WHERE 1=1"
+            "SELECT id, date_vente, id_client, comission_employe, id_employe, nom, total_vente FROM V_Commission_employe WHERE 1=1"
         );
 
         // Liste des paramètres de la requête
@@ -132,12 +141,10 @@ public class Vente {
         if (dateFin!=null) {
             sql.append(" AND date_vente <= ?");
         }
+        System.out.println(sql.toString());
 
         // Ajouter la clause GROUP BY si id_employe n'est pas spécifié
-        if (idEmploye==null) {
-            sql.append(" GROUP BY id_employe");
-        }
-
+        
         // Préparer la requête
         try (PreparedStatement stmt = conn.getConnex().prepareStatement(sql.toString())) {
             // Ajouter les paramètres à la requête
@@ -162,7 +169,7 @@ public class Vente {
                 vente.setIdEmploye(rs.getInt("id_employe"));
                 vente.nomEmploye = rs.getString("nom");
                 vente.setComission_employe(rs.getDouble("comission_employe"));
-                
+                vente.setTotalVente(rs.getDouble("total_vente"));
                 list.add(vente);
             }
         }

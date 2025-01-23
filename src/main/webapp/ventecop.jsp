@@ -35,6 +35,7 @@
 List<Age> listAge =(List<Age>) request.getAttribute("ages");
 List<Administration> listAdministration =(List<Administration>) request.getAttribute("administrations");
 List<Client> clients = (List<Client>) request.getAttribute("clients");
+List<Employe> employes = (List<Employe>) request.getAttribute("employes");
 
 %>
 <%@ include file="sidebar.jsp" %>

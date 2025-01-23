@@ -93,7 +93,7 @@
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="listeCommission.jsp">
+        <a class="nav-link collapsed" href="ListeCommission">
           <i class="bi bi-dash-circle"></i>
           <span>Commissions</span>
         </a>

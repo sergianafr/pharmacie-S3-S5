@@ -4,6 +4,7 @@ import Model.Laboratoire;
 import Model.Pays;
 import Model.Produit;
 import Model.Vente;
+import Model.Employe;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,9 +29,9 @@ public class ListeCommission extends HttpServlet  {
             Integer idEmploye = null;
             Date dateDebut = null;
             Date dateFin = null;
-
             if(req.getParameter("idEmploye")!=null) {
-                if(req.getParameter("idEmploye").isEmpty()){
+                if(!req.getParameter("idEmploye").isEmpty()){
+                    System.out.println(req.getParameter("idEmploye"));
                     idEmploye = Integer.parseInt(req.getParameter("idEmploye"));
                 }
             }if (req.getParameter("dateDebut")!=null) {
@@ -42,9 +43,12 @@ public class ListeCommission extends HttpServlet  {
                     dateFin = Date.valueOf(req.getParameter("dateFin"));
                 }
             }
-
+            List<Employe> employees = Employe.getAll(c);
             List<Vente> list = Vente.getCommission(c, idEmploye, dateDebut, dateFin);
-            req.setAttribute("listCommission", list);    
+            req.setAttribute("listCommission", list);  
+            req.setAttribute("employes", employees);  
+            RequestDispatcher dispatcher = req.getRequestDispatcher("listeCommission.jsp");  
+            dispatcher.forward(req, resp);
             
         } catch (Exception e) {
             e.printStackTrace();
