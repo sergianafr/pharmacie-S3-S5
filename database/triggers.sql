@@ -22,9 +22,11 @@ BEGIN
     NEW.prix_total := NEW.qte * NEW.pu;
 
     -- Mettre à jour la commission de l'employé
-    UPDATE VENTE 
-    SET comission_employe = comission_employe + (NEW.prix_total * 0.05)
-    WHERE id = NEW.id_vente;
+    IF(NEW.prix_total > 200000) THEN
+        UPDATE VENTE 
+        SET comission_employe = comission_employe + (NEW.prix_total * 0.05)
+        WHERE id = NEW.id_vente;
+    END IF;
 
     RETURN NEW;
 END;

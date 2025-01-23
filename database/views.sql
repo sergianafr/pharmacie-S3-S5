@@ -41,4 +41,9 @@ JOIN vente_detail on vente_detail.id_vente = vente.id
 JOIN EMploye on employe.id = vente.id_employe
 GROUP BY vente.id, vente.date_vente, employe.nom;
 
--- AND cm.date_fin >= CURRENT_DATE AND cm.date_debut<= CURRENT_DATE
+CREATE OR REPLACE VIEW V_comission_genre AS
+SELECT SUM(comission_employe) as total_comission, Genre.id, Genre.nom 
+FROM Employe 
+LEFT JOIN Vente ON vente.id_employe = Employe.id
+JOIN Genre ON employe.id_genre = Genre.id
+GROUP BY Genre.id, GEnre.nom;
