@@ -22,11 +22,11 @@ BEGIN
     NEW.prix_total := NEW.qte * NEW.pu;
 
     -- Mettre à jour la commission de l'employé
-    IF(NEW.prix_total > 200000) THEN
-        UPDATE VENTE 
-        SET comission_employe = comission_employe + (NEW.prix_total * 0.05)
-        WHERE id = NEW.id_vente;
-    END IF;
+    -- IF(NEW.prix_total > 200000) THEN
+    --     UPDATE VENTE 
+    --     SET comission_employe = comission_employe + (NEW.prix_total * 0.05)
+    --     WHERE id = NEW.id_vente;
+    -- END IF;
 
     RETURN NEW;
 END;
@@ -163,3 +163,37 @@ CREATE TRIGGER trigger_check_id_produit_per_month
 BEFORE INSERT ON conseil_mois
 FOR EACH ROW
 EXECUTE FUNCTION check_unique_id_produit_per_month();
+
+
+CREATE OR REPLACE FUNCTION calcul_commission_employe()
+RETURNS TRIGGER AS $$
+DECLARE
+    total_vente double precision;
+BEGIN
+    -- Calcul du total de la vente associée
+    SELECT SUM(vd.prix_total)
+    INTO total_vente
+    FROM vente_detail vd
+    WHERE vd.id_vente = NEW.id_vente;
+
+    -- Si le total de la vente est supérieur à 200 000, on calcule la commission
+    IF total_vente > 200000 THEN
+        -- Mise à jour de la commission de l'employé sur la vente
+        UPDATE vente
+        SET comission_employe = total_vente * 0.05
+        WHERE id = NEW.id_vente;
+    ELSE
+        -- Si le total est inférieur ou égal à 200 000, la commission est 0
+        UPDATE vente
+        SET comission_employe = 0
+        WHERE id = NEW.id_vente;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trigger_calcul_commission
+AFTER INSERT OR UPDATE
+ON vente_detail
+FOR EACH ROW
+EXECUTE FUNCTION calcul_commission_employe();

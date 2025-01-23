@@ -54,7 +54,7 @@
                     <div class="col-md-6">
                         <label for="produit" class="form-label">Vendeurs</label>
                         <select class="form-select" aria-label="Sélectionner un vendeur" id="produit" name="idEmploye">
-                            <option selected disabled>Ouvrir ce menu de sélection</option>
+                            <option selected disabled>Ouvrir ce menu de selection</option>
                             <% for(Employe emp : employes){ %>
                                 <option value="<%= emp.getId() %>"><%= emp.getNom() %></option>
                             <% } %>
@@ -68,6 +68,7 @@
             </div>
         </div>
     </section>
+    <a href="GetEtatComission">Stats commissions</a>
 
     <section class="section">
         <div class="card">

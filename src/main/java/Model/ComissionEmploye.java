@@ -20,6 +20,8 @@ public class ComissionEmploye {
 
     private int idGenre;
     private String nomGenre;
+    private double comissionHomme;
+    private double comissionFemme;
     public int getId() {
         return id;
     }
@@ -131,11 +133,21 @@ public class ComissionEmploye {
     }public void setNomGenre(String nomGenre) {
         this.nomGenre = nomGenre;
     }
-    public static List<ComissionEmploye> getByGenre(Connect conn, Date dateDebut, Date dateFin) throws SQLException {
+
+    public double getComissionFemme() {
+        return comissionFemme;
+    }public double getComissionHomme() {
+        return comissionHomme;
+    }
+
+    
+    
+    public static ComissionEmploye getByGenre(Connect conn, Date dateDebut, Date dateFin) throws SQLException {
         // Construction de la requête SQL de base
         List<ComissionEmploye> list = new ArrayList<ComissionEmploye>();
+        ComissionEmploye employee = new ComissionEmploye();
         StringBuilder sql = new StringBuilder(
-            "SELECT * FROM Employe LEFT JOIN Vente ON vente.id_employe = Employe.id JOIN Genre ON employe.id_genre = Genre.id WHERE 1=1"
+            "SELECT SUM(comission_employe) as total_comission, Genre.id, Genre.nom  FROM Employe LEFT JOIN Vente ON vente.id_employe = Employe.id JOIN Genre ON employe.id_genre = Genre.id WHERE 1=1"
         );
         if (dateDebut!=null) {
             sql.append(" AND date_vente >= ?");
@@ -168,9 +180,15 @@ public class ComissionEmploye {
                 vente.setComission_employe(rs.getDouble("total_comission"));
                 vente.setIdGenre(rs.getInt("id"));
                 vente.setNomGenre(rs.getString("nom"));
+                System.out.println(rs.getString("nom"));
+                if(rs.getString("nom").equals("Homme")){
+                    employee.comissionHomme = (rs.getDouble("total_comission"));
+                }else {
+                    employee.comissionFemme = (rs.getDouble("total_comission"));
+                }
                 list.add(vente);
             }
+            return employee;
         }
-        return list;
-    }
+    } 
 }

@@ -32,16 +32,16 @@
 <body>
 
  <%@ include file="sidebar.jsp" %>
+<% ComissionEmploye listeVente = (ComissionEmploye) request.getAttribute("comissionEmploye");%> 
 
 <main id="main" class="main">
     <section class="section">
         <div class="container mt-5">
             <!-- Formulaire de filtrage -->
-            <button class="btn btn-primary"><a href="commissionSexe.jsp">Info commission</a></button>
             <div class="row mb-4">
-                <form class="row g-3" action="ListeCommissionSexe" method="get">
+                <form class="row g-3" action="GetEtatComission" method="get">
                     <div class="col-md-6">
-                        <label for="dateDebut" class="form-label">Début</label>
+                        <label for="dateDebut" class="form-label">Debut</label>
                         <input type="date" class="form-control" id="dateDebut" name="dateDebut" placeholder="YYYY-MM-DD">
                     </div>
                     <div class="col-md-6">
@@ -50,14 +50,14 @@
                     </div>
 
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-primary">Ok</button>
+                        <button type="submit" class="btn btn-primary">Filtrer</button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
-
-    <section class="section">
+<div class="row">
+    <section class="section" class="col-4">
         <div class="card">
             <div class="card-body">
                 <!-- Tableau de données -->
@@ -69,19 +69,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%-- <% for(Vente v: listeVente){ %>
-                            <tr>
-                                <td><%= v.getNomEmploye() %></td>
-                                <td><%= v.getComission_employe() %></td>
-                                <td><%= v.getTotalVente() %></td>
-                                <td><%= v.getDateVente() %></td>
-                            </tr>
-                        <% } %> --%>
+                        <tr>
+                            <td><%=listeVente.getComissionHomme()%></td>
+                            <td><%=listeVente.getComissionFemme()%></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
+    <section class="col-8">
+        <canvas id="chart" style="max-height: 400px;"></canvas>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // Récupérer les données dynamiques via JSP et les assigner à des variables JavaScript
+                var comissionHomme = <%= listeVente.getComissionHomme() %>;
+                var comissionFemme = <%= listeVente.getComissionFemme() %>;
+
+                // Créer le graphique avec les données dynamiques
+                new Chart(document.querySelector('#chart'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['Homme', 'Femme'],
+                        datasets: [{
+                            label: 'Commission',
+                            data: [comissionHomme, comissionFemme],
+                            backgroundColor: [
+                                'rgb(255, 99, 132)', // couleur pour 'Homme'
+                                'rgb(54, 162, 235)'  // couleur pour 'Femme'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    }
+                });
+            });
+        </script>
+
+    </section>
+</div>
 </main>
 <!-- End #main -->
 
