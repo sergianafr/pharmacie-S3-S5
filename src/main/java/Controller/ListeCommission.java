@@ -33,7 +33,7 @@ public class ListeCommission extends HttpServlet  {
             if(req.getParameter("idEmploye")!=null) {
                 if(!req.getParameter("idEmploye").isEmpty()){
                     System.out.println(req.getParameter("idEmploye"));
-                    idEmploye = Integer.parseInt(req.getParameter("idEmploye"));
+                    idEmploye = Integer.parseInt(req.getParameter("idEmploye")); 
                 }
             }if (req.getParameter("dateDebut")!=null) {
                 if(!req.getParameter("dateDebut").isEmpty()){

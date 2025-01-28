@@ -33,7 +33,7 @@
 <% List<Vente> listeVente = (List<Vente>) request.getAttribute("listCommission"); 
   List<Employe> employes = (List<Employe>) request.getAttribute("employes");
 %>
-<% ComissionEmploye listeVente = (ComissionEmploye) request.getAttribute("comissionEmploye");%> 
+<% ComissionEmploye listCom = (ComissionEmploye) request.getAttribute("comissionEmploye");%> 
 
 
  <%@ include file="sidebar.jsp" %>
@@ -45,7 +45,7 @@
             <div class="row mb-4">
                 <form class="row g-3" action="ListeCommission" method="get">
                     <div class="col-md-6">
-                        <label for="dateDebut" class="form-label">Début</label>
+                        <label for="dateDebut" class="form-label">Debut</label>
                         <input type="date" class="form-control" id="dateDebut" name="dateDebut" placeholder="YYYY-MM-DD">
                     </div>
                     <div class="col-md-6">
@@ -70,7 +70,7 @@
             </div>
         </div>
     </section>
-    <a href="GetEtatComission">Stats commissions</a>
+    <%-- <a href="GetEtatComission">Stats commissions</a> --%>
 
     <section class="section">
         <div class="row">
@@ -102,7 +102,31 @@
                 </div>
             </div>
             <div class="col-8">
-            
+                <canvas id="chart" style="max-height: 400px;"></canvas>
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        // Récupérer les données dynamiques via JSP et les assigner à des variables JavaScript
+                        var comissionHomme = <%= listCom.getComissionHomme() %>;
+                        var comissionFemme = <%= listCom.getComissionFemme() %>;
+
+                        // Créer le graphique avec les données dynamiques
+                        new Chart(document.querySelector('#chart'), {
+                            type: 'pie',
+                            data: {
+                                labels: ['Homme', 'Femme'],
+                                datasets: [{
+                                    label: 'Commission',
+                                    data: [comissionHomme, comissionFemme],
+                                    backgroundColor: [
+                                        'rgb(255, 99, 132)', // couleur pour 'Homme'
+                                        'rgb(54, 162, 235)'  // couleur pour 'Femme'
+                                    ],
+                                    hoverOffset: 4
+                                }]
+                            }
+                        });
+                    });
+                </script>
             </div>
         </div>
     </section>
