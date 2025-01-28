@@ -20,6 +20,12 @@ public class PrixProduit {
         this.idProduit = idProduit;
     }
 
+
+    public PrixProduit(double montant, int idProduit) {
+        this.montant = montant;
+        this.idProduit = idProduit;
+    }
+
     public Date getDateInsertion() {
         return dateInsertion;
     }public int getId() {

@@ -11,7 +11,7 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("Produit");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insertion Produit du mois</title>
+    <title>Insertion Prix Produit</title>
     
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,10 +38,10 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("Produit");
                  <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Insertion Produit du Mois</h5>
+                            <h5 class="card-title">Insertion Prix Produit</h5>
 
                             <!-- General Form Elements -->
-                            <form action="GetInsertionProduitsMois" method="POST">
+                            <form action="GetPrixProduit" method="POST">
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Produits</label>
                                     <div class="col-sm-10">
@@ -61,6 +61,13 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("Produit");
                                             }
                                             %>
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Prix</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" class="form-control" name="prix">
                                     </div>
                                 </div>
 
