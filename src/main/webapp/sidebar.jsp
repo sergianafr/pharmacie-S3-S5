@@ -103,6 +103,12 @@
           <span>Commissions</span>
         </a>
       </li>
+            <li class="nav-item">
+        <a class="nav-link collapsed" href="GetPrixProduit">
+          <i class="bi bi-dash-circle"></i>
+          <span>Prix Produits</span>
+        </a>
+      </li>
       
       <%-- <li class="nav-item">
         <a href="ListeVente">
