@@ -33,6 +33,8 @@
 <% List<Vente> listeVente = (List<Vente>) request.getAttribute("listCommission"); 
   List<Employe> employes = (List<Employe>) request.getAttribute("employes");
 %>
+<% ComissionEmploye listeVente = (ComissionEmploye) request.getAttribute("comissionEmploye");%> 
+
 
  <%@ include file="sidebar.jsp" %>
 
@@ -71,29 +73,36 @@
     <a href="GetEtatComission">Stats commissions</a>
 
     <section class="section">
-        <div class="card">
-            <div class="card-body">
-                <!-- Tableau de données -->
-                <table class="table table-striped data-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Commission</th>
-                            <th scope="col">Montant total</th>
-                            <th scope="col">Date vente</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for(Vente v: listeVente){ %>
-                            <tr>
-                                <td><%= v.getNomEmploye() %></td>
-                                <td><%= v.getComission_employe() %></td>
-                                <td><%= v.getTotalVente() %></td>
-                                <td><%= v.getDateVente() %></td>
-                            </tr>
-                        <% } %>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Tableau de données -->
+                        <table class="table table-striped data-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Commission</th>
+                                    <th scope="col">Montant total</th>
+                                    <th scope="col">Date vente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(Vente v: listeVente){ %>
+                                    <tr>
+                                        <td><%= v.getNomEmploye() %></td>
+                                        <td><%= v.getComission_employe() %></td>
+                                        <td><%= v.getTotalVente() %></td>
+                                        <td><%= v.getDateVente() %></td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+            
             </div>
         </div>
     </section>

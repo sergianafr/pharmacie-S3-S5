@@ -4,6 +4,7 @@ import Model.Laboratoire;
 import Model.Pays;
 import Model.Produit;
 import Model.Vente;
+import Model.ComissionEmploye;
 import Model.Employe;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -43,6 +44,8 @@ public class ListeCommission extends HttpServlet  {
                     dateFin = Date.valueOf(req.getParameter("dateFin"));
                 }
             }
+            ComissionEmploye comm = ComissionEmploye.getByGenre(c, dateDebut, dateFin);
+            req.setAttribute("comissionEmploye", comm);
             List<Employe> employees = Employe.getAll(c);
             List<Vente> list = Vente.getCommission(c, idEmploye, dateDebut, dateFin);
             req.setAttribute("listCommission", list);  
