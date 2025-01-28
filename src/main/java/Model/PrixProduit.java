@@ -3,6 +3,8 @@ package Model;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import DbUtils.Connect;
 
@@ -11,6 +13,7 @@ public class PrixProduit {
     private Date dateInsertion;
     private double montant;
     private int idProduit;
+    private String nom;
 
     // Constructeur
     public PrixProduit(int id, Date dateInsertion, double montant, int idProduit) {
@@ -73,5 +76,64 @@ public class PrixProduit {
             throw e;
         }
     }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+    public String getNom() {
+        return nom;
+    }
+
+    public static  List<PrixProduit> getAll(int idProduit, Date dateDebut, Date dateFin, Connect c) throws Exception{
+        try {
+            String sql = "SELECT * FROM v_detail_prix where 1=1 ";
+            if(idProduit!=0){
+                sql += " AND id_Produit=?";
+            }
+            if (dateDebut!=null) {
+                sql+=" AND date_insertion >= ?";
+            }
+    
+            int paramIndex = 1;
+            // Ajouter une condition pour date_fin, si fourni
+            if (dateFin!=null) {
+                sql+=" AND date_insertion <= ?";
+            }
+            PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
+            System.out.println(sql);
+            
+            if (idProduit != 0) {
+                preparedStatement.setInt(1, idProduit);
+            }
+            if (dateDebut!=null) {
+                preparedStatement.setDate(paramIndex++, dateDebut);
+            }
+            System.out.println("paraaam "+paramIndex);
+            if (dateFin!=null) {
+                preparedStatement.setDate(paramIndex++, dateFin);
+            }
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            List<PrixProduit> results = new ArrayList<PrixProduit>();
+            while(rs.next()){
+                System.out.println(rs);
+                int id = rs.getInt(1);
+                Date dateInsertion = rs.getDate(2);
+                double montant = rs.getDouble(3);
+                int id_produit = rs.getInt(4);
+                String nom = rs.getString(5);
+                PrixProduit objet = new PrixProduit(id, dateInsertion, montant, id_produit);
+                objet.setNom(nom);
+                results.add(objet);   
+            }
+            preparedStatement.close();
+            rs.close();
+            return results;
+            
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
 }
 

@@ -47,3 +47,8 @@ FROM Employe
 LEFT JOIN Vente ON vente.id_employe = Employe.id
 JOIN Genre ON employe.id_genre = Genre.id
 GROUP BY Genre.id, GEnre.nom;
+
+CREATE OR REPLACE VIEW V_detail_Prix AS
+SELECT prix_produit.id, prix_produit.date_insertion, prix_produit.montant, prix_produit.id_produit, produit.nom
+FROM prix_produit
+join produit on produit.id = prix_produit.id_produit;

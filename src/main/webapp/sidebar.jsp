@@ -80,6 +80,11 @@
               <i class="bi bi-circle"></i><span>Hygienes</span>
             </a>
           </li>
+          <li>
+            <a href="GetHistoriquePrix">
+              <i class="bi bi-circle"></i><span>Historique des prix</span>
+            </a>
+          </li>
           <%-- <li>
             <a href="GetMvtStock">
               <i class="bi bi-circle"></i><span>Stock</span>
