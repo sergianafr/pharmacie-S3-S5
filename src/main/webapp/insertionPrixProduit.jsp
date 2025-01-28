@@ -33,6 +33,11 @@ List<Produit> listProduits = (List<Produit>) request.getAttribute("Produit");
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <i class="bi bi-exclamation-octagon me-1"></i>
         <%= request.getAttribute("error") %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><%}else if(request.getAttribute("success") != null){%>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-octagon me-1"></i>
+        <%-- <%= request.getAttribute("error") %>
+         --%>Insertion reussie
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><%}%>
     </div>
                  <div class="col-lg-6">

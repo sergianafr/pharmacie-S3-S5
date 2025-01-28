@@ -62,6 +62,9 @@ public class PrixProduit {
     public void create(Connect c)throws Exception{
         try {      
             String Query = "INSERT INTO prix_produit VALUES (default , CURRENT_DATE, ?, ?)";
+            System.out.println(Query);
+            System.out.println(this.getMontant());
+            System.out.println(this.getIdProduit()+"  prix tafiditra");
             PreparedStatement preparedStatement = c.getConnex().prepareStatement(Query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setDouble(1, this.getMontant());
             preparedStatement.setInt(2, this.getIdProduit());
@@ -90,56 +93,61 @@ public class PrixProduit {
         return nom;
     }
 
-    public static  List<PrixProduit> getAll(int idProduit, Date dateDebut, Date dateFin, Connect c) throws Exception{
+    public static List<PrixProduit> getAll(int idProduit, Date dateDebut, Date dateFin, Connect c) throws Exception {
         try {
-            String sql = "SELECT * FROM v_detail_prix where 1=1 ";
-            if(idProduit!=0){
-                sql += " AND id_Produit=?";
-            }
-            if (dateDebut!=null) {
-                sql+=" AND date_insertion >= ?";
-            }
-    
-            int paramIndex = 1;
-            // Ajouter une condition pour date_fin, si fourni
-            if (dateFin!=null) {
-                sql+=" AND date_insertion <= ?";
-            }
-            PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
-            System.out.println(sql);
+            String sql = "SELECT * FROM v_detail_prix WHERE 1=1";
             
+            // Ajouter des conditions supplémentaires à la requête
             if (idProduit != 0) {
-                preparedStatement.setInt(1, idProduit);
+                sql += " AND id_Produit = ?";
             }
-            if (dateDebut!=null) {
+            if (dateDebut != null) {
+                sql += " AND date_insertion >= ?";
+            }
+            if (dateFin != null) {
+                sql += " AND date_insertion <= ?";
+            }
+            
+            PreparedStatement preparedStatement = c.getConnex().prepareStatement(sql);
+            System.out.println("SQL: " + sql);
+    
+            // Paramétrer la requête avec les bonnes valeurs
+            int paramIndex = 1;
+    
+            if (idProduit != 0) {
+                preparedStatement.setInt(paramIndex++, idProduit);
+            }
+            if (dateDebut != null) {
                 preparedStatement.setDate(paramIndex++, dateDebut);
             }
-            System.out.println("paraaam "+paramIndex);
-            if (dateFin!=null) {
+            if (dateFin != null) {
                 preparedStatement.setDate(paramIndex++, dateFin);
             }
+    
             ResultSet rs = preparedStatement.executeQuery();
-            
+    
             List<PrixProduit> results = new ArrayList<PrixProduit>();
-            while(rs.next()){
-                System.out.println(rs);
-                int id = rs.getInt(1);
+            while (rs.next()) {
+                int id = rs.getInt(1); // Assurer que l'index correspond à la colonne
                 Date dateInsertion = rs.getDate(2);
                 double montant = rs.getDouble(3);
-                int id_produit = rs.getInt(4);
+                int idProduitResult = rs.getInt(4); // Utiliser une variable différente pour éviter les conflits
                 String nom = rs.getString(5);
-                PrixProduit objet = new PrixProduit(id, dateInsertion, montant, id_produit);
+                
+                PrixProduit objet = new PrixProduit(id, dateInsertion, montant, idProduitResult);
                 objet.setNom(nom);
-                results.add(objet);   
+                results.add(objet);
             }
+            
             preparedStatement.close();
             rs.close();
-            return results;
             
+            return results;
         } catch (Exception e) {
             throw e;
         }
     }
+    
     
 }
 

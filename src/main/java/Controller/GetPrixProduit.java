@@ -73,11 +73,14 @@ public class GetPrixProduit extends HttpServlet {
             int idProduit = Integer.valueOf(request.getParameter("produit"));
 
             PrixProduit prix = new PrixProduit(prixProduit,idProduit);
-            prix.setIdProduit(prixProduit);
+            prix.setIdProduit(idProduit);
+            System.out.println(prix.getIdProduit() +"  idProduit");
+            System.out.println(prix.getMontant());
 
-            prix.create(con);
+            prix.create(con); 
             con.getConnex().commit();
-            response.sendRedirect("GetPrixProduit");
+            request.setAttribute("success", "Insertion reussie");
+            doGet(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", e.getMessage());

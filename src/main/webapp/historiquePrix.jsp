@@ -84,7 +84,7 @@ List<Produit> produits = (List<Produit>) request.getAttribute("produits");
         <!-- Titre et bouton d'insertion -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="card-title">Historique des prix</h5>
-            <%-- <a href="GetInsertionProduitsMois" class="btn btn-success">Ajouter un Produit</a> --%>
+            <a href="GetPrixProduit" class="btn btn-success">Nouveau prix</a>
         </div>
 
         <!-- Table des produits -->
